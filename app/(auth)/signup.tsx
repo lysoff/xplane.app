@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 
-const SignIn = () => {
+const SignUp = () => {
   return (
     <>
       <SafeAreaView className="h-full bg-primary  items-center justify-center">
@@ -26,12 +26,20 @@ const SignIn = () => {
             />
           </View>
 
+          <View className="flex-col gap-y-2 my-2 w-full">
+            <Text className="text-gray-500 text-xl">Confirm Password:</Text>
+            <TextInput
+              secureTextEntry={true}
+              className="text-white text-xl rounded-xl border-2 p-5 border-solid border-gray-700 w-full"
+            />
+          </View>
+
           <View className="flex-row w-full py-5">
             <Button containerStyles="mr-5" onPress={() => router.back()}>
-              Sign In
+              Sign Up
             </Button>
-            <Link className="text-secondary flex-shrink" href="/signup">
-              Don't have an account? Sign up
+            <Link className="text-secondary flex-shrink" href="/signin">
+              Already have an account? Sign in
             </Link>
           </View>
         </View>
@@ -41,4 +49,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
