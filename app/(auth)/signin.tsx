@@ -1,17 +1,16 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Link } from "expo-router";
+import Button from "../../components/Button";
+import { router } from "expo-router";
 
-const Home = () => {
+const SignIn = () => {
   return (
     <>
       <SafeAreaView className="h-full bg-primary">
         <View className="h-full items-center justify-center bg-primary">
-          <Text className="text-xl font-pregular text-secondary">Home</Text>
-          <Link className="text-gray-500" href="/signin">
-            SignIn
-          </Link>
+          <Text className="text-xl font-pregular text-secondary">SignIn</Text>
+          <Button onPress={() => router.back()}>SignIn</Button>
         </View>
       </SafeAreaView>
       <StatusBar style="light" />
@@ -19,4 +18,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SignIn;
