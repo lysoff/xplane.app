@@ -17,9 +17,9 @@ const Button = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`bg-secondary p-3 rounded-xl ${containerStyles}`}
+      className={`bg-secondary p-3 rounded-xl min-w-[150px] items-center ${containerStyles}`}
     >
-      <Text className={`text-primary ${textStyles}`}>{children}</Text>
+      <Text className={`text-xl text-primary ${textStyles}`}>{children}</Text>
     </TouchableOpacity>
   );
 };
