@@ -1,10 +1,21 @@
 import { View, Text, SafeAreaView, TextInput } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
+import { Icon } from "../../constants/icons";
 
 const SignIn = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = () => {
+    console.log({ form });
+  };
+
   return (
     <>
       <SafeAreaView className="h-full bg-primary  items-center justify-center">
@@ -15,19 +26,33 @@ const SignIn = () => {
 
           <View className="flex-col gap-y-2 my-2 w-full">
             <Text className="text-gray-500 text-xl">Email</Text>
-            <TextInput className="text-white text-xl rounded-xl border-2 p-5 border-solid border-gray-700 w-full" />
-          </View>
-
-          <View className="flex-col gap-y-2 my-2 w-full">
-            <Text className="text-gray-500 text-xl">Password</Text>
             <TextInput
-              secureTextEntry={true}
+              value={form.email}
+              onChangeText={(e) => setForm({ ...form, email: e })}
               className="text-white text-xl rounded-xl border-2 p-5 border-solid border-gray-700 w-full"
             />
           </View>
 
+          <View className="flex-col gap-y-2 my-2 w-full">
+            <Text className="text-gray-500 text-xl">Password</Text>
+            <View className="flex-row pr-2 items-center rounded-xl border-2 border-solid border-gray-700 w-full">
+              <TextInput
+                value={form.password}
+                onChangeText={(e) => setForm({ ...form, password: e })}
+                secureTextEntry={!showPassword}
+                className="flex-1 p-5 mr-2 text-white text-xl "
+              />
+              <Icon
+                onPress={() => setShowPassword(!showPassword)}
+                name={!showPassword ? "eye" : "eye-off"}
+                size={24}
+                color="#666"
+              />
+            </View>
+          </View>
+
           <View className="flex-row w-full py-5">
-            <Button containerStyles="mr-5" onPress={() => router.back()}>
+            <Button containerStyles="mr-5" onPress={handleSubmit}>
               Sign In
             </Button>
             <Link className="text-secondary flex-shrink" href="/signup">
