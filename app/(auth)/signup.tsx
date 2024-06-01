@@ -7,14 +7,18 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { Icon } from "@/constants/icons";
-import { createAccount } from "@/lib/appwrite";
+import { createAccount, getCurrentUser } from "@/lib/appwrite";
 
 const SignUp = () => {
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -43,6 +47,7 @@ const SignUp = () => {
       }
     }
   };
+
   return (
     <>
       <SafeAreaView className="h-full bg-primary  items-center justify-center">

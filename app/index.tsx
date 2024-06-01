@@ -10,7 +10,7 @@ const Home = () => {
         <View className="h-full items-center justify-center bg-primary">
           <Text className="text-xl font-pregular text-secondary">Home</Text>
           <Link className="text-gray-500" href="/signin">
-            SignIn
+            Test OAuth
           </Link>
         </View>
       </SafeAreaView>

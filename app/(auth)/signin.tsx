@@ -4,6 +4,10 @@ import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { Icon } from "../../constants/icons";
+import { googleSignIn } from "@/lib/appwrite";
+import * as WebBrowser from "expo-web-browser";
+
+WebBrowser.maybeCompleteAuthSession();
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -58,6 +62,11 @@ const SignIn = () => {
             <Link className="text-secondary flex-shrink" href="/signup">
               Don't have an account? Sign up
             </Link>
+          </View>
+          <View className="flex-row w-full py-5">
+            <Button containerStyles="mr-5" onPress={googleSignIn}>
+              Google
+            </Button>
           </View>
         </View>
       </SafeAreaView>
