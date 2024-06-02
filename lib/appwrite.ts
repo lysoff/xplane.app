@@ -45,21 +45,24 @@ export const googleSignIn = async () => {
         callbackUrl
       )) as any;
 
-      if (!(await handleIncomingCookie(browserResult.url, config.endpoint))) {
+      const cookieResult = await handleIncomingCookie(
+        browserResult.url,
+        config.endpoint
+      );
+
+      if (!cookieResult) {
         return;
       }
     }
 
-    const user = await account.get();
-
-    console.log({ user });
-
-    const sessions = await account.listSessions();
-
-    console.log({ sessions });
+    return getCurrentUser();
   } catch (e) {
     console.log(e);
   }
+};
+
+export const logout = async () => {
+  return account.deleteSession("current");
 };
 
 export const getAvatar = ({ username = "" }) => {
@@ -117,11 +120,5 @@ export const createUser = async ({
 };
 
 export const getCurrentUser = async () => {
-  try {
-    const user = await account.get();
-
-    console.log({ user });
-  } catch (e) {
-    console.log((e as Error).message);
-  }
+  return account.get();
 };

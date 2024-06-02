@@ -42,9 +42,7 @@ const SignUp = () => {
         username: form.username,
       });
     } catch (e) {
-      if (e instanceof Error) {
-        Alert.alert(e.message);
-      }
+      Alert.alert((e as any).message);
     }
   };
 

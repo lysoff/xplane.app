@@ -6,10 +6,13 @@ import { Link, router } from "expo-router";
 import { Icon } from "../../constants/icons";
 import { googleSignIn } from "@/lib/appwrite";
 import * as WebBrowser from "expo-web-browser";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const SignIn = () => {
+  const { setIsLogged, setUserInfo } = useGlobalContext();
+
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     email: "",
@@ -18,6 +21,15 @@ const SignIn = () => {
 
   const handleSubmit = () => {
     console.log({ form });
+  };
+
+  const handleGoogle = async () => {
+    const user = await googleSignIn();
+
+    setUserInfo(user);
+    setIsLogged(true);
+
+    router.replace("/home");
   };
 
   return (
@@ -64,7 +76,7 @@ const SignIn = () => {
             </Link>
           </View>
           <View className="flex-row w-full py-5">
-            <Button containerStyles="mr-5" onPress={googleSignIn}>
+            <Button containerStyles="mr-5" onPress={handleGoogle}>
               Google
             </Button>
           </View>

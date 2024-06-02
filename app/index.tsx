@@ -1,16 +1,23 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalContext";
 
-const Home = () => {
+const Welcome = () => {
+  const { isLoading, isLogged } = useGlobalContext();
+
+  if (!isLoading && isLogged) return <Redirect href="/home" />;
+
   return (
     <>
       <SafeAreaView className="h-full bg-primary">
         <View className="h-full items-center justify-center bg-primary">
-          <Text className="text-xl font-pregular text-secondary">Home</Text>
+          <Text className="text-xl font-pregular text-secondary">
+            Welcome to Xplane
+          </Text>
           <Link className="text-gray-500" href="/signin">
-            Test OAuth
+            Login or Signup
           </Link>
         </View>
       </SafeAreaView>
@@ -19,4 +26,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Welcome;

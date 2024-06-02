@@ -32,7 +32,6 @@ export const handleIncomingCookie = async (url: string, endpoint: string) => {
 
 export const deleteCookies = async () => {
   try {
-    // await CookieManager.removeSessionCookies();
     await CookieManager.clearAll();
   } catch (e) {
     console.log(e);
