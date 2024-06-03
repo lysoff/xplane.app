@@ -122,3 +122,9 @@ export const createUser = async ({
 export const getCurrentUser = async () => {
   return account.get();
 };
+
+export const signIn = async (email: string, password: string) => {
+  const session = await account.createEmailPasswordSession(email, password);
+
+  return getCurrentUser();
+};

@@ -1,10 +1,10 @@
-import { View, Text, SafeAreaView, TextInput } from "react-native";
+import { View, Text, SafeAreaView, TextInput, Alert } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { Icon } from "../../constants/icons";
-import { googleSignIn } from "@/lib/appwrite";
+import { googleSignIn, signIn } from "@/lib/appwrite";
 import * as WebBrowser from "expo-web-browser";
 import { useGlobalContext } from "@/context/GlobalContext";
 
@@ -19,17 +19,28 @@ const SignIn = () => {
     password: "",
   });
 
-  const handleSubmit = () => {
-    console.log({ form });
+  const login = (user: any) => {
+    setUserInfo(user);
+    setIsLogged(true);
+
+    router.replace("/home");
+  };
+
+  const handleSubmit = async () => {
+    if (!form.email || !form.password) {
+      Alert.alert("Fill out the form");
+      return;
+    }
+
+    const user = await signIn(form.email, form.password);
+
+    login(user);
   };
 
   const handleGoogle = async () => {
     const user = await googleSignIn();
 
-    setUserInfo(user);
-    setIsLogged(true);
-
-    router.replace("/home");
+    login(user);
   };
 
   return (
