@@ -12,13 +12,11 @@ import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { Icon } from "@/constants/icons";
-import { createAccount, getCurrentUser } from "@/lib/appwrite";
+import { registerUser, getCurrentAccount } from "@/lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 const SignUp = () => {
-  useEffect(() => {
-    getCurrentUser();
-  }, []);
-
+  const { setIsLogged, setUserInfo } = useGlobalContext();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -36,11 +34,16 @@ const SignUp = () => {
     }
 
     try {
-      await createAccount({
+      const user = await registerUser({
         email: form.email,
         password: form.password,
         username: form.username,
       });
+
+      setIsLogged(true);
+      setUserInfo(user);
+
+      router.replace("/home");
     } catch (e) {
       Alert.alert((e as any).message);
     }

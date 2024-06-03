@@ -1,4 +1,4 @@
-import { getCurrentUser } from "@/lib/appwrite";
+import { getCurrentAccount } from "@/lib/appwrite";
 import {
   Dispatch,
   ReactNode,
@@ -31,7 +31,7 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [userInfo, setUserInfo] = useState<any>(null);
 
   useEffect(() => {
-    getCurrentUser()
+    getCurrentAccount()
       .then((res) => {
         console.log({ res });
 
