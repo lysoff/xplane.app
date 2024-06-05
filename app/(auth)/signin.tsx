@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
-import { Icon } from "../../constants/icons";
+import { MaterialCommunityIcons as Icon } from "../../constants/icons";
 import * as WebBrowser from "expo-web-browser";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { googleSignIn, signIn } from "@/services/authService";

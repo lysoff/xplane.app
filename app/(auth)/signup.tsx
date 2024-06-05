@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
-import { Icon } from "@/constants/icons";
+import { MaterialCommunityIcons as Icon } from "@/constants/icons";
 import { useGlobalContext } from "@/context/GlobalContext";
 import * as authService from "@/services/authService";
 

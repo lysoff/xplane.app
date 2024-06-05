@@ -1,3 +1,7 @@
-import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import {
+  Feather,
+  MaterialCommunityIcons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 
-export { Icon };
+export { Feather, MaterialCommunityIcons, SimpleLineIcons };
