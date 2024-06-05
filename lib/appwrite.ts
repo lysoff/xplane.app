@@ -98,3 +98,35 @@ export const getSession = async () => {
 export const signIn = async (email: string, password: string) => {
   return await account.createEmailPasswordSession(email, password);
 };
+
+interface CreateFieldProps {
+  name: string;
+  icon: string;
+  active: boolean;
+}
+
+export const createField = async ({
+  name,
+  icon,
+  active = true,
+}: CreateFieldProps) => {
+  return await databases.createDocument(
+    config.databaseId,
+    config.fieldsCollectionId,
+    ID.unique(),
+    {
+      name,
+      icon,
+      active,
+    }
+  );
+};
+
+export const listFields = async () => {
+  const res = await databases.listDocuments(
+    config.databaseId,
+    config.fieldsCollectionId
+  );
+
+  return res.documents;
+};
