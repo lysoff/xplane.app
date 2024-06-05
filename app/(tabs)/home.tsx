@@ -2,17 +2,15 @@ import { View, SafeAreaView, Image, Text } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
-import { deleteCookies } from "@/lib/handleIncomingCoolkie";
 import { router } from "expo-router";
-import { logout } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalContext";
+import * as authService from "@/services/authService";
 
 const Home = () => {
   const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
 
   const handleLogout = async () => {
-    await logout();
-    await deleteCookies();
+    await authService.logout();
 
     setUserInfo(null);
     setIsLogged(false);

@@ -1,4 +1,4 @@
-import { getCurrentAccount, getCurrentUser } from "@/lib/appwrite";
+import { getCurrentUser } from "@/services/authService";
 import {
   Dispatch,
   ReactNode,

@@ -12,8 +12,8 @@ import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { Icon } from "@/constants/icons";
-import { registerUser } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalContext";
+import * as authService from "@/services/authService";
 
 const SignUp = () => {
   const { setIsLogged, setUserInfo } = useGlobalContext();
@@ -34,7 +34,7 @@ const SignUp = () => {
     }
 
     try {
-      const user = await registerUser({
+      const user = await authService.signUp({
         email: form.email,
         password: form.password,
         username: form.username,
