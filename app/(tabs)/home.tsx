@@ -1,4 +1,4 @@
-import { View, SafeAreaView } from "react-native";
+import { View, SafeAreaView, Image, Text } from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
@@ -8,7 +8,7 @@ import { logout } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalContext";
 
 const Home = () => {
-  const { setUserInfo, setIsLogged } = useGlobalContext();
+  const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
 
   const handleLogout = async () => {
     await logout();
@@ -24,6 +24,19 @@ const Home = () => {
     <>
       <SafeAreaView className="h-full bg-primary  items-center justify-center">
         <View className="h-full items-center justify-center bg-primary w-[300px]">
+          {userInfo && (
+            <View className="items-center justify-center">
+              <Image
+                source={{ uri: userInfo.avatar }}
+                className="w-[100px] h-[100px] border"
+                resizeMode="contain"
+              />
+              <Text className="text-secondary-100">{userInfo.name}</Text>
+              <Text className="text-secondary-200 text-sm">
+                {userInfo.email}
+              </Text>
+            </View>
+          )}
           <View className="flex-row w-full py-5">
             <Button containerStyles="mr-5" onPress={handleLogout}>
               Logout

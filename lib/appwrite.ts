@@ -15,7 +15,9 @@ export const config = {
   projectId: "665b17750024b892b938",
   platform: "xplane.app",
   databaseId: "665d63df0010618ae94e",
-  userCollectionId: "665d63fd0025274ccc61",
+  usersCollectionId: "665d63fd0025274ccc61",
+  fieldsCollectionId: "665d91ee0034ca85b682",
+  scoreCollectionId: "665d93e200152243b51e",
 };
 
 export const client = new Client();
@@ -55,14 +57,13 @@ export const googleSignIn = async () => {
         return;
       }
     }
+    const session = await account.getSession("current");
 
     const currentAccount = await getCurrentAccount();
 
     let user = await getUser(currentAccount.email);
 
     if (!user) {
-      const session = await account.getSession("current");
-
       const googleUser = await getGoogleUser(session.providerAccessToken);
 
       user = await createUser({
@@ -81,7 +82,7 @@ export const googleSignIn = async () => {
 export const getUser = async (email: string) => {
   const users = await databases.listDocuments<any>(
     config.databaseId,
-    config.userCollectionId,
+    config.usersCollectionId,
     [Query.equal("email", email)]
   );
 
@@ -137,7 +138,7 @@ interface CreateUserParams {
 export const createUser = async ({ name, email, avatar }: CreateUserParams) => {
   return databases.createDocument(
     config.databaseId,
-    config.userCollectionId,
+    config.usersCollectionId,
     ID.unique(),
     {
       name,
@@ -152,7 +153,21 @@ export const getCurrentAccount = async () => {
 };
 
 export const signIn = async (email: string, password: string) => {
-  const session = await account.createEmailPasswordSession(email, password);
+  await account.createEmailPasswordSession(email, password);
 
-  return getCurrentAccount();
+  const currentAccount = await getCurrentAccount();
+
+  if (!currentAccount) {
+    return null;
+  }
+
+  return getUser(currentAccount.email);
+};
+
+export const getCurrentUser = async () => {
+  const account = await getCurrentAccount();
+
+  if (!account) return null;
+
+  return getUser(account.email);
 };

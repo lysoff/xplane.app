@@ -1,4 +1,4 @@
-import { getCurrentAccount } from "@/lib/appwrite";
+import { getCurrentAccount, getCurrentUser } from "@/lib/appwrite";
 import {
   Dispatch,
   ReactNode,
@@ -31,10 +31,8 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [userInfo, setUserInfo] = useState<any>(null);
 
   useEffect(() => {
-    getCurrentAccount()
+    getCurrentUser()
       .then((res) => {
-        console.log({ res });
-
         if (res) {
           setIsLogged(true);
           setUserInfo(res);

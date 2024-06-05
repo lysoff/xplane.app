@@ -16,6 +16,7 @@ export const handleIncomingCookie = async (url: string, endpoint: string) => {
   }
 
   const domainUrl = new URL(endpoint);
+  await CookieManager.clearAll();
 
   const cookie: Cookie = {
     name: queryParams.key,

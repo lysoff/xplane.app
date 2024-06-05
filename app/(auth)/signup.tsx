@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { Icon } from "@/constants/icons";
-import { registerUser, getCurrentAccount } from "@/lib/appwrite";
+import { registerUser } from "@/lib/appwrite";
 import { useGlobalContext } from "@/context/GlobalContext";
 
 const SignUp = () => {
