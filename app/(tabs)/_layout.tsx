@@ -72,7 +72,7 @@ const _layout = () => {
         }}
       />
       <Tabs.Screen
-        name="fields"
+        name="(fields)"
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (

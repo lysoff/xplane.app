@@ -96,7 +96,7 @@ export const getSession = async () => {
 };
 
 export const signIn = async (email: string, password: string) => {
-  return await account.createEmailPasswordSession(email, password);
+  return account.createEmailPasswordSession(email, password);
 };
 
 interface CreateFieldProps {

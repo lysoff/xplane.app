@@ -32,9 +32,14 @@ const SignIn = () => {
       return;
     }
 
-    const user = await signIn(form.email, form.password);
+    try {
+      const user = await signIn(form.email, form.password);
 
-    login(user);
+      login(user);
+    } catch (e) {
+      console.log(e);
+      Alert.alert((e as Error).message);
+    }
   };
 
   const handleGoogle = async () => {
