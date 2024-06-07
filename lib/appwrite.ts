@@ -110,22 +110,34 @@ export const createField = async ({
   icon,
   active = true,
 }: CreateFieldProps) => {
-  return await databases.createDocument(
-    config.databaseId,
-    config.fieldsCollectionId,
-    ID.unique(),
-    {
-      name,
-      icon,
-      active,
-    }
-  );
+  try {
+    const account = await getCurrentAccount();
+    const user = await getUser(account.email);
+
+    return await databases.createDocument(
+      config.databaseId,
+      config.fieldsCollectionId,
+      ID.unique(),
+      {
+        name,
+        active,
+        icon,
+        users: user.$id,
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const listFields = async () => {
+  const account = await getCurrentAccount();
+  const user = await getUser(account.email);
+
   const res = await databases.listDocuments(
     config.databaseId,
-    config.fieldsCollectionId
+    config.fieldsCollectionId,
+    [Query.equal("users", user.$id)]
   );
 
   return res.documents;
