@@ -13,3 +13,7 @@ export const useFields = () => useAppwrite<Field>(api.listFields);
 export const createField = async (name: string, icon: string) => {
   return api.createField({ name, icon, active: true });
 };
+
+export const deleteField = async (id: string) => {
+  return api.deleteField({ id });
+};

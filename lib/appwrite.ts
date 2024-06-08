@@ -99,7 +99,7 @@ export const signIn = async (email: string, password: string) => {
   return account.createEmailPasswordSession(email, password);
 };
 
-interface CreateFieldProps {
+interface CreateFieldParams {
   name: string;
   icon: string;
   active: boolean;
@@ -109,7 +109,7 @@ export const createField = async ({
   name,
   icon,
   active = true,
-}: CreateFieldProps) => {
+}: CreateFieldParams) => {
   try {
     const account = await getCurrentAccount();
     const user = await getUser(account.email);
@@ -124,6 +124,22 @@ export const createField = async ({
         icon,
         users: user.$id,
       }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+interface DeleteFieldParams {
+  id: string;
+}
+
+export const deleteField = async ({ id }: DeleteFieldParams) => {
+  try {
+    return await databases.deleteDocument(
+      config.databaseId,
+      config.fieldsCollectionId,
+      id
     );
   } catch (e) {
     console.log(e);
