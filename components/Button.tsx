@@ -6,18 +6,23 @@ interface ButtonProps {
   containerStyles?: string;
   textStyles?: string;
   onPress?: () => void;
+  disabled?: boolean;
 }
 
 const Button = ({
   children,
   containerStyles = "",
   textStyles = "",
+  disabled = false,
   onPress,
 }: ButtonProps) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
-      className={`bg-secondary p-3 rounded-xl min-w-[150px] items-center ${containerStyles}`}
+      className={`${
+        disabled ? "bg-gray-400" : "bg-secondary"
+      } p-3 rounded-xl min-w-[150px] items-center ${containerStyles}`}
     >
       <Text className={`text-xl text-primary ${textStyles}`}>{children}</Text>
     </TouchableOpacity>

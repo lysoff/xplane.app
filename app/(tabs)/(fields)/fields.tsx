@@ -25,7 +25,7 @@ const Fields = () => {
         )}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6 w-full">
-            <View className="flex justify-between items-start flex-row mb-6  w-full">
+            <View className="flex justify-between items-start flex-row mb-6 w-full">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
                   Welcome Back
