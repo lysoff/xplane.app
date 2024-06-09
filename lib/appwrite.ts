@@ -158,3 +158,16 @@ export const listFields = async () => {
 
   return res.documents;
 };
+
+export const updateField = async (id: string, updatedPart: any) => {
+  try {
+    return databases.updateDocument(
+      config.databaseId,
+      config.fieldsCollectionId,
+      id,
+      updatedPart
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};

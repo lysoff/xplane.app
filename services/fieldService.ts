@@ -17,3 +17,7 @@ export const createField = async (name: string, icon: string) => {
 export const deleteField = async (id: string) => {
   return api.deleteField({ id });
 };
+
+export const updateField = async (id: string, updated: Partial<Field>) => {
+  return api.updateField(id, updated);
+};
