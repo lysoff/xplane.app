@@ -8,6 +8,7 @@ const FieldsLayout = () => {
       <Stack>
         <Stack.Screen name="fields" options={{ headerShown: false }} />
         <Stack.Screen name="create" options={{ headerShown: false }} />
+        <Stack.Screen name="edit/[id]" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="light" />
     </>

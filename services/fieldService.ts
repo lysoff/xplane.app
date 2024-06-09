@@ -8,7 +8,9 @@ export type Field = Models.Document & {
   icon: string;
 };
 
-export const useFields = () => useAppwrite<Field>(api.listFields);
+export const useFields = () => useAppwrite<Field[]>(api.listFields);
+export const useField = (id: string) =>
+  useAppwrite<Field>(() => api.getField(id));
 
 export const createField = async (name: string, icon: string) => {
   return api.createField({ name, icon, active: true });

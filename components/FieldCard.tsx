@@ -12,13 +12,14 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { colors } from "@/constants/colors";
+import { router } from "expo-router";
 
 interface FieldCardProps {
   field: Field;
   onDelete: (id: string) => Promise<void>;
 }
 
-const X_THRESHOLD = -104;
+const X_THRESHOLD = -80;
 const LINE_HEIGHT = 70;
 
 const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
@@ -38,7 +39,7 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
     })
     .onEnd((e) => {
       if (e.translationX < X_THRESHOLD) {
-        translationX.value = X_THRESHOLD;
+        translationX.value = X_THRESHOLD * 2;
       } else {
         translationX.value = 0;
       }
@@ -59,11 +60,17 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
     height: height.value,
   }));
 
-  const handlePress = () => {
+  const handleDelete = () => {
     opacity.value = withTiming(0);
     height.value = withDelay(100, withTiming(0));
 
     runOnJS(onDelete)(field.$id);
+  };
+
+  const handleEdit = () => {
+    router.push(`/edit/${field.$id}`);
+
+    translationX.value = 0;
   };
 
   const handleSwitch = async (value: boolean) => {
@@ -78,11 +85,17 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
   return (
     <GestureDetector gesture={pan}>
       <Animated.View style={containerStyle}>
-        <Animated.View
-          className="absolute right-0 bg-red-400 px-10"
-          style={{ paddingVertical: 23 }}
-        >
-          <TouchableOpacity onPress={handlePress}>
+        <Animated.View className="absolute right-0 flex-row">
+          <TouchableOpacity
+            onPress={handleEdit}
+            className="bg-yellow-400 w-[80px] h-[70px] items-center justify-center"
+          >
+            <MaterialCommunityIcons name="pencil" color="white" size={24} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleDelete}
+            className="bg-red-400 w-[80px] h-[70px] items-center justify-center"
+          >
             <MaterialCommunityIcons name="trash-can" color="white" size={24} />
           </TouchableOpacity>
         </Animated.View>

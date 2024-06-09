@@ -171,3 +171,15 @@ export const updateField = async (id: string, updatedPart: any) => {
     console.log(e);
   }
 };
+
+export const getField = async (id: string) => {
+  try {
+    return databases.getDocument(
+      config.databaseId,
+      config.fieldsCollectionId,
+      id
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
