@@ -1,10 +1,18 @@
-import { View, SafeAreaView, Image, Text } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import { router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalContext";
 import * as authService from "@/services/authService";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { colors } from "@/constants/colors";
 
 const Home = () => {
   const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
@@ -20,27 +28,32 @@ const Home = () => {
 
   return (
     <>
-      <SafeAreaView className="h-full bg-primary  items-center justify-center">
-        <View className="h-full items-center justify-center bg-primary w-[300px]">
-          {userInfo && (
-            <View className="items-center justify-center">
+      <SafeAreaView className="h-full bg-primary items-center">
+        {userInfo && (
+          <View className="p-4 w-full flex-row">
+            <View className="flex-1">
               <Image
                 source={{ uri: userInfo.avatar }}
-                className="w-[100px] h-[100px] border"
+                className="w-[60px] h-[60px]"
                 resizeMode="contain"
+                style={{ borderRadius: 50 }}
               />
-              <Text className="text-secondary-100">{userInfo.name}</Text>
-              <Text className="text-secondary-200 text-sm">
-                {userInfo.email}
+              <Text className="text-gray-200 text-xl font-psemibold">
+                {userInfo.name}
               </Text>
+              <Text className="text-gray-200 text-sm">{userInfo.email}</Text>
             </View>
-          )}
-          <View className="flex-row w-full py-5">
-            <Button containerStyles="mr-5" onPress={handleLogout}>
-              Logout
-            </Button>
+            <View>
+              <TouchableOpacity onPress={handleLogout}>
+                <MaterialCommunityIcons
+                  name="exit-to-app"
+                  color={colors.gray[100]}
+                  size={30}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        )}
       </SafeAreaView>
       <StatusBar style="light" />
     </>
