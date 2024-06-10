@@ -103,19 +103,27 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
           className="w-full flex-row items-center border-b-0 p-5 border-secondary bg-primary"
           style={animatedStyle}
         >
-          <View className="flex-1 flex-row items-center">
-            <MaterialCommunityIcons
-              name={field.icon as any}
-              size={30}
-              color={field.active ? colors.secondary.DEFAULT : colors.gray[100]}
-            />
-            <Text
-              className={`ml-4 text-xl ${
-                field.active ? "text-secondary" : "text-gray-100"
-              }`}
+          <View className="flex-1">
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={handleEdit}
+              className="flex-row items-center"
             >
-              {field.name}
-            </Text>
+              <MaterialCommunityIcons
+                name={field.icon as any}
+                size={30}
+                color={
+                  field.active ? colors.secondary.DEFAULT : colors.gray[100]
+                }
+              />
+              <Text
+                className={`ml-4 text-xl ${
+                  field.active ? "text-secondary" : "text-gray-100"
+                }`}
+              >
+                {field.name}
+              </Text>
+            </TouchableOpacity>
           </View>
           <View className="w-[50px]">
             <Switch
