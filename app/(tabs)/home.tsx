@@ -5,17 +5,29 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { StatusBar } from "expo-status-bar";
-import Button from "../../components/Button";
 import { router } from "expo-router";
 import { useGlobalContext } from "@/context/GlobalContext";
 import * as authService from "@/services/authService";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
+import { Field, useFields } from "@/services/fieldService";
+import ScoreButton from "@/components/ScoreButton";
 
 const Home = () => {
   const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
+
+  const { data, loading } = useFields();
+  const fields = useMemo(() => {
+    if (!data) return null;
+
+    return data.filter((item) => item.active);
+  }, [data]);
+
+  const handlePress = useCallback(async (field: Field) => {
+    console.log({ field });
+  }, []);
 
   const handleLogout = async () => {
     await authService.logout();
@@ -30,7 +42,7 @@ const Home = () => {
     <>
       <SafeAreaView className="h-full bg-primary items-center">
         {userInfo && (
-          <View className="p-4 w-full flex-row">
+          <View className="p-10 w-full flex-row">
             <View className="flex-1">
               <Image
                 source={{ uri: userInfo.avatar }}
@@ -54,6 +66,16 @@ const Home = () => {
             </View>
           </View>
         )}
+        <View className="flex-row flex-wrap gap-6 p-10">
+          {fields &&
+            fields.map((field) => (
+              <ScoreButton
+                key={field.name}
+                field={field}
+                onPress={handlePress}
+              />
+            ))}
+        </View>
       </SafeAreaView>
       <StatusBar style="light" />
     </>
