@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { Field, useFields } from "@/services/fieldService";
 import ScoreButton from "@/components/ScoreButton";
+import { createScore } from "@/services/scoreService";
 
 const Home = () => {
   const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
@@ -26,7 +27,15 @@ const Home = () => {
   }, [data]);
 
   const handlePress = useCallback(async (field: Field) => {
-    console.log({ field });
+    try {
+      await createScore({
+        fields: field.$id,
+        success: true,
+        comment: "Score added",
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   const handleLogout = async () => {

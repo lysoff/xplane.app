@@ -130,6 +130,38 @@ export const createField = async ({
   }
 };
 
+interface CreateScoreParams {
+  success: boolean;
+  comment: string;
+  fields: string; //$id
+}
+
+export const createScore = async ({
+  success,
+  comment,
+  fields,
+}: CreateScoreParams) => {
+  try {
+    const account = await getCurrentAccount();
+    const user = await getUser(account.email);
+
+    return await databases.createDocument(
+      config.databaseId,
+      config.scoreCollectionId,
+      ID.unique(),
+      {
+        date: new Date().toISOString(),
+        success,
+        comment,
+        fields,
+        users: user.$id,
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 interface DeleteFieldParams {
   id: string;
 }
