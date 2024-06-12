@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React, { useCallback, useState } from "react";
 import { Field } from "@/services/fieldService";
 import { TouchableOpacity } from "react-native-gesture-handler";

@@ -60,7 +60,7 @@ const AreaChart = (props: AreaChartProps) => {
     children,
   } = props;
 
-  const [dimensions, setDimensions] = useState({ height: 300, width: 300 });
+  const [dimensions, setDimensions] = useState({ height: 200, width: 300 });
   const { width, height } = dimensions;
 
   const _onLayout = (event: any) => {
