@@ -49,7 +49,7 @@ const AreaChart = (props: AreaChartProps) => {
     yScale = scale.scaleLinear,
     style,
     animate = true,
-    animationDuration = 100,
+    animationDuration = 5000,
     numberOfTicks = 10,
     contentInset: { top = 0, bottom = 0, left = 0, right = 0 } = {},
     gridMax,
@@ -60,7 +60,7 @@ const AreaChart = (props: AreaChartProps) => {
     children,
   } = props;
 
-  const [dimensions, setDimensions] = useState({ height: 200, width: 300 });
+  const [dimensions, setDimensions] = useState({ height: 300, width: 300 });
   const { width, height } = dimensions;
 
   const _onLayout = (event: any) => {
@@ -71,29 +71,6 @@ const AreaChart = (props: AreaChartProps) => {
     } = event;
 
     setDimensions({ height, width });
-  };
-
-  const createPaths = ({ data, x, y }: any) => {
-    const area = shape
-      .area()
-      .x((d: any) => x(d.x))
-      .y0(y(start))
-      .y1((d: any) => y(d.y))
-      .defined((item: any) => typeof item.y === "number")
-      .curve(curve)(data);
-
-    const line = shape
-      .line()
-      .x((d: any) => x(d.x))
-      .y((d: any) => y(d.y))
-      .defined((item: any) => typeof item.y === "number")
-      .curve(curve)(data);
-
-    return {
-      path: area,
-      area,
-      line,
-    };
   };
 
   if (Array.isArray(data) && data.length === 0) {
@@ -130,21 +107,47 @@ const AreaChart = (props: AreaChartProps) => {
     .range([left, width - right])
     .clamp(clampX);
 
+  const createPaths = ({ data, x, y }: any) => {
+    const area = shape
+      .area()
+      .x((d: any) => {
+        return x(d.x);
+      })
+      .y0(y(start))
+      .y1((d: any) => {
+        return y(d.y);
+      })
+      .curve(curve)(data);
+
+    const line = shape
+      .line()
+      .x((d: any) => x(d.x))
+      .y((d: any) => y(d.y))
+      .defined((item: any) => typeof item.y === "number")
+      .curve(curve)(data);
+
+    return {
+      path: area,
+      area,
+      d: line,
+      // area,
+    };
+  };
+
   const paths = createPaths({
     data: mappedData,
     x,
     y,
   });
 
-  const ticks = y.ticks(numberOfTicks);
-
   const extraProps = {
     x,
     y,
     data,
-    ticks,
+    numberOfTicks,
     width,
     height,
+
     ...paths,
   };
 
