@@ -7,12 +7,15 @@ export const randomTimestamps = () => {
 
   const array = [];
 
+  const iconIndexes = [];
+
   for (let i = 0; i < 10; i++) {
     array.push(
       DateTime.fromMillis(
         start.toMillis() + Math.trunc(Math.random() * diff)
       ).toJSDate()
     );
+    iconIndexes.push(Math.trunc(Math.random() * 3));
   }
 
   array.sort((a, b) => (a > b ? 1 : -1));
@@ -22,5 +25,6 @@ export const randomTimestamps = () => {
     end: end.toJSDate(),
     diff,
     array,
+    iconIndexes,
   };
 };

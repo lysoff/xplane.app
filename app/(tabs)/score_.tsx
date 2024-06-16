@@ -1,31 +1,13 @@
 import { GestureResponderEvent, SafeAreaView, Text, View } from "react-native";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { randomTimestamps } from "@/utils/randomTimestamps";
 import * as shape from "d3-shape";
 import * as scale from "d3-scale";
-import { ConsoleColor } from "@/utils/utils";
 import { Circle, G, Path, Line, Svg, Text as SvgText } from "react-native-svg";
 import { colors } from "@/constants/colors";
 import { DateTime } from "luxon";
 import Button from "@/components/Button";
-
-import GlobeSvg from "@/assets/icons/globe.svg";
-import HammerSvg from "@/assets/icons/hammer.svg";
-import Grid from "@/assets/icons/grid.svg";
-
-const Icons = [GlobeSvg, HammerSvg, Grid];
-
-const getYDelta = (value: number) => {
-  if (value > 10000000) {
-    return -20;
-  } else if (value > 5000000) {
-    return -7;
-  } else if (value > 1000000) {
-    return 20;
-  } else {
-    return 30;
-  }
-};
+import ScorePoint from "@/components/ScorePoint";
 
 const curves = [
   shape.curveBasis,
@@ -56,6 +38,8 @@ const Score = () => {
 
   const [curveIndex, setCurveIndex] = useState(0);
 
+  const [selected, setSelected] = useState<{ x: number }>();
+
   const x = scale
     .scaleTime()
     .range([50, 400])
@@ -69,12 +53,7 @@ const Score = () => {
   const data: any[] = [{ x: timestamps.start, y: 0, iconIndex: undefined }];
 
   timestamps.array.forEach((item, index) => {
-    const prev = timestamps.array[index - 1] || timestamps.start;
-    const millisDiff = DateTime.fromJSDate(item)
-      .diff(DateTime.fromJSDate(prev))
-      .toMillis();
-
-    const iconIndex = Math.trunc(Math.random() * 3);
+    const iconIndex = timestamps.iconIndexes[index];
 
     data.push({
       x: item,
@@ -82,8 +61,6 @@ const Score = () => {
       iconIndex,
     });
   });
-
-  const iconIndexes = data.map(({ iconIndex }) => iconIndex);
 
   data.push({ x: timestamps.end, y: data.at(-1).y });
 
@@ -104,6 +81,10 @@ const Score = () => {
     setCurveIndex(curveIndex + 1 >= curves.length ? 0 : curveIndex + 1);
   };
 
+  const onScorePointClicked = (item: any) => {
+    setSelected(item.x === selected?.x ? null : item);
+  };
+
   return (
     <SafeAreaView className="h-full bg-primary items-center justify-center">
       <View className="flex-row gap-2">
@@ -114,6 +95,13 @@ const Score = () => {
           Switch curve
         </Button>
       </View>
+      {selected && (
+        <View>
+          <Text className="text-gray-200">
+            Selected: {DateTime.fromJSDate((selected as any).x).toFormat("t")}
+          </Text>
+        </View>
+      )}
       <Svg
         style={{
           height: 300,
@@ -153,28 +141,15 @@ const Score = () => {
         {data
           .filter((item) => typeof item.iconIndex !== "undefined")
           .map((item, index) => {
-            const IconComponent = Icons[item.iconIndex];
-
-            const handlePress = (e: GestureResponderEvent) => {
-              console.log(e.currentTarget);
-            };
-
             return (
-              <G onPress={handlePress} x={x(item.x)} y={y(item.y)} key={index}>
-                <Circle
-                  cx={0}
-                  cy={0}
-                  r={15}
-                  stroke={colors.secondary.DEFAULT}
-                  fill={colors.primary}
-                />
-                <G x={-12} y={-12}>
-                  <IconComponent
-                    textAnchor="middle"
-                    stroke={colors.secondary.DEFAULT}
-                  />
-                </G>
-              </G>
+              <ScorePoint
+                onPress={onScorePointClicked}
+                x={x(item.x)}
+                y={y(item.y)}
+                key={index}
+                item={item}
+                selected={selected?.x === item.x}
+              />
             );
           })}
       </Svg>
