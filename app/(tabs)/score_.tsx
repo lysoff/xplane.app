@@ -31,12 +31,6 @@ const Score = () => {
 
   const [selected, setSelected] = useState<{ x: number }>();
 
-  useEffect(() => {
-    setInterval(() => {
-      setCurveIndex(Math.trunc(Math.random() * curves.length));
-    }, 5000);
-  }, []);
-
   const x = scale
     .scaleTime()
     .range([50, 400])
