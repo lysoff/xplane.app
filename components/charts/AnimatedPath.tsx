@@ -66,7 +66,9 @@ const AnimatedPath = (props: AnimatedPathProps) => {
         // this.setState(this.state, () => {
         //   this._animate(start);
         // });
-        InteractionManager.runAfterInteractions(() => _animate(start));
+        // InteractionManager.runAfterInteractions(() => _animate(start));
+
+        _animate(start);
       }
       // console.log(this.interpolator)
       // this.tween && console.log(this.tween.tween(delta))

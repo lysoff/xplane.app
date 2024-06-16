@@ -1,29 +1,20 @@
-import { GestureResponderEvent, SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import React, { useEffect, useMemo, useState } from "react";
 import { randomTimestamps } from "@/utils/randomTimestamps";
 import * as shape from "d3-shape";
 import * as scale from "d3-scale";
-import { Circle, G, Path, Line, Svg, Text as SvgText } from "react-native-svg";
+import { G, Path, Svg, Text as SvgText } from "react-native-svg";
 import { colors } from "@/constants/colors";
 import { DateTime } from "luxon";
 import Button from "@/components/Button";
 import ScorePoint from "@/components/ScorePoint";
+import AnimatedPath from "@/components/charts/AnimatedPath";
 
 const curves = [
-  shape.curveBasis,
-  shape.curveBasisClosed,
-  shape.curveBasisOpen,
   shape.curveBumpX,
   shape.curveBumpY,
-  shape.curveBundle,
   shape.curveCardinal,
-  shape.curveCardinalClosed,
-  shape.curveCardinalOpen,
   shape.curveCatmullRom,
-  shape.curveCatmullRomClosed,
-  shape.curveCatmullRomOpen,
-  shape.curveLinear,
-  shape.curveLinearClosed,
   shape.curveMonotoneX,
   shape.curveMonotoneY,
   shape.curveNatural,
@@ -39,6 +30,12 @@ const Score = () => {
   const [curveIndex, setCurveIndex] = useState(0);
 
   const [selected, setSelected] = useState<{ x: number }>();
+
+  useEffect(() => {
+    setInterval(() => {
+      setCurveIndex(Math.trunc(Math.random() * curves.length));
+    }, 5000);
+  }, []);
 
   const x = scale
     .scaleTime()
@@ -137,7 +134,13 @@ const Score = () => {
             </G>
           );
         })}
-        <Path d={line || ""} fill="none" stroke={colors.secondary[200]} />
+        <AnimatedPath
+          animate={true}
+          animationDuration={500}
+          d={line || ""}
+          fill="none"
+          stroke={colors.secondary[200]}
+        />
         {data
           .filter((item) => typeof item.iconIndex !== "undefined")
           .map((item, index) => {
