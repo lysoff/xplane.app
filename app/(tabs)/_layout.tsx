@@ -101,6 +101,21 @@ const _layout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="score_"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon
+              IconComponent={SimpleLineIcons}
+              focused={focused}
+              color={color}
+              name="graph"
+              title="New Score"
+            />
+          ),
+        }}
+      />
     </Tabs>
   );
 };
