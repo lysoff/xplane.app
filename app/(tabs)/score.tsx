@@ -3,9 +3,11 @@ import * as shape from "d3-shape";
 import AreaChart from "@/components/charts/AreaChart";
 import { Grid } from "@/components/charts/Grid";
 import { SafeAreaView, View } from "react-native";
-import { Defs, LinearGradient, Path, Stop } from "react-native-svg";
+import { Defs, LinearGradient, Path, Stop, G } from "react-native-svg";
 import Button from "@/components/Button";
 import AnimatedPath from "@/components/charts/AnimatedPath";
+import GlobeSvg from "@/assets/icons/globe.svg";
+import { colors } from "@/constants/colors";
 
 const AreaChartExample = () => {
   const [data, setData] = useState([
@@ -26,7 +28,6 @@ const AreaChartExample = () => {
   );
 
   const Line = ({ d = "" }: { d?: string }) => {
-    console.log({ d });
     return (
       <AnimatedPath
         animate={true}
@@ -54,6 +55,10 @@ const AreaChartExample = () => {
   };
   const handleClick = () => {
     setData(randomize(data));
+  };
+
+  const handlePress = (e: any) => {
+    console.log(e);
   };
 
   return (
@@ -88,6 +93,13 @@ const AreaChartExample = () => {
         >
           <Grid />
           <Line />
+          <GlobeSvg
+            style={{ width: 24, height: 24 }}
+            width={24}
+            height={24}
+            onPress={handlePress}
+            stroke={colors.secondary.DEFAULT}
+          />
         </AreaChart>
       </View>
     </SafeAreaView>
