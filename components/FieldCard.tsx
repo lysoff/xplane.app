@@ -23,12 +23,12 @@ const X_THRESHOLD = -80;
 const LINE_HEIGHT = 70;
 
 const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
-  const translationX = useSharedValue(0);
-  const currentTranslateX = useSharedValue(0);
   const opacity = useSharedValue(1);
   const height = useSharedValue(LINE_HEIGHT);
-
   const [field, setField] = useState({ ..._field });
+
+  const translationX = useSharedValue(0);
+  const currentTranslateX = useSharedValue(0);
 
   const pan = Gesture.Pan()
     .onChange((e) => {
