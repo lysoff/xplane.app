@@ -92,8 +92,8 @@ const Score = () => {
 
   return (
     <SafeAreaView className="h-full w-full bg-primary items-center justify-center">
-      <View className="h-full bg-primary items-center flex-col">
-        <View className="flex-row">
+      <View className="h-full w-full p-6 bg-primary items-center flex-col">
+        <View className="flex-row mb-20">
           <Button onPress={handlePress} containerStyles="m-1 p-3">
             Random data
           </Button>
@@ -105,81 +105,87 @@ const Score = () => {
           </Button>
         </View>
 
-        <View className="flex-1 w-full">
-          <ViewShot
-            ref={ref}
-            style={{ backgroundColor: "transparent" }}
-            options={{ fileName: "Your-File-Name", format: "png", quality: 1 }}
-          >
-            <Svg
-              fill={colors.primary}
-              fillOpacity={0.2}
-              style={{
-                height: 300,
-                width: 400,
-                borderRightWidth: 0,
-                backgroundColor: "transparent",
+        <View className="w-full h-[300px] relative">
+          <View className="absolute">
+            <ViewShot
+              ref={ref}
+              style={{ backgroundColor: "transparent" }}
+              options={{
+                fileName: "Your-File-Name",
+                format: "png",
+                quality: 1,
               }}
             >
-              {horTicks.map((tick, index) => {
-                const d = `M0 ${y(tick)} L500 ${y(tick)}`;
+              <Svg
+                fill={colors.primary}
+                fillOpacity={0.2}
+                style={{
+                  height: 300,
+                  width: 390,
+                  borderRightWidth: 0,
+                  backgroundColor: "transparent",
+                }}
+              >
+                {horTicks.map((tick, index) => {
+                  const d = `M0 ${y(tick)} L500 ${y(tick)}`;
 
-                return (
-                  <G key={index}>
-                    <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
-                  </G>
-                );
-              })}
-              {vertTicks.map((tick, index) => {
-                const d = `M${x(tick)} 300 L${x(tick)} 0`;
-                const time = DateTime.fromJSDate(tick).toFormat("HH:mm");
-
-                return (
-                  <G key={index}>
-                    <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
-                  </G>
-                );
-              })}
-              {vertTicks.length > 0 && (
-                <G>
-                  <Path
-                    d={`M${x(timestamps.end)} 300 L${x(timestamps.end)} 0`}
-                    stroke={colors.gray[100]}
-                    opacity={0.2}
-                  />
-                </G>
-              )}
-              <AnimatedPath
-                animate={true}
-                animationDuration={500}
-                d={line || ""}
-                fill="none"
-                stroke={colors.secondary[200]}
-              />
-              {data
-                .filter((item) => typeof item.iconIndex !== "undefined")
-                .map((item, index) => {
                   return (
-                    <ScorePoint
-                      onPress={onScorePointClicked}
-                      x={x(item.x)}
-                      y={y(item.y)}
-                      key={index}
-                      item={item}
-                      selected={selected?.x === item.x}
-                    />
+                    <G key={index}>
+                      <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
+                    </G>
                   );
                 })}
-            </Svg>
-          </ViewShot>
-          {selected && (
-            <View>
-              <Text className="text-gray-200">
-                Selected:{" "}
-                {DateTime.fromJSDate((selected as any).x).toFormat("t")}
-              </Text>
-            </View>
-          )}
+                {vertTicks.map((tick, index) => {
+                  const d = `M${x(tick)} 300 L${x(tick)} 0`;
+                  const time = DateTime.fromJSDate(tick).toFormat("HH:mm");
+
+                  return (
+                    <G key={index}>
+                      <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
+                    </G>
+                  );
+                })}
+                {vertTicks.length > 0 && (
+                  <G>
+                    <Path
+                      d={`M${x(timestamps.end)} 300 L${x(timestamps.end)} 0`}
+                      stroke={colors.gray[100]}
+                      opacity={0.2}
+                    />
+                  </G>
+                )}
+                <AnimatedPath
+                  animate={true}
+                  animationDuration={500}
+                  d={line || ""}
+                  fill="none"
+                  stroke={colors.secondary[200]}
+                />
+                {data
+                  .filter((item) => typeof item.iconIndex !== "undefined")
+                  .map((item, index) => {
+                    return (
+                      <ScorePoint
+                        onPress={onScorePointClicked}
+                        x={x(item.x)}
+                        y={y(item.y)}
+                        key={index}
+                        item={item}
+                        selected={selected?.x === item.x}
+                      />
+                    );
+                  })}
+              </Svg>
+            </ViewShot>
+            {selected && (
+              <View>
+                <Text className="text-gray-200">
+                  Selected:{" "}
+                  {DateTime.fromJSDate((selected as any).x).toFormat("t")}
+                </Text>
+              </View>
+            )}
+          </View>
         </View>
       </View>
     </SafeAreaView>
