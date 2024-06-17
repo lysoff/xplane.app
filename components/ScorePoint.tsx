@@ -28,7 +28,14 @@ const ScorePoint = ({ item, x, y, onPress, selected }: ScorePointProps) => {
 
   return (
     <G onPress={handlePress} x={x} y={y}>
-      <Circle cx={0} cy={0} r={15} stroke={stroke} fill={colors.primary} />
+      <Circle
+        cx={0}
+        cy={0}
+        r={15}
+        stroke={stroke}
+        fillOpacity={0.8}
+        fill={colors.primary}
+      />
       <G x={-12} y={-12}>
         <IconComponent textAnchor="middle" stroke={stroke} />
       </G>

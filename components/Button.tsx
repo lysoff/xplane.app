@@ -22,7 +22,7 @@ const Button = ({
       onPress={onPress}
       className={`${
         disabled ? "bg-gray-400" : "bg-secondary"
-      } p-3 rounded-xl min-w-[150px] items-center ${containerStyles}`}
+      } p-3 rounded-xl min-w-[100px] items-center ${containerStyles}`}
     >
       <Text className={`text-xl text-primary ${textStyles}`}>{children}</Text>
     </TouchableOpacity>
