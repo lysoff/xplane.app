@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import * as shape from "d3-shape";
 import Button from "@/components/Button";
 import ScoreGraph from "@/components/charts/ScoreGraph";
+import ScoreDetails from "@/components/charts/ScoreDetails";
 
 const days = [0, 1, 2, 3, 4, 5];
 
@@ -23,6 +24,8 @@ const Score = () => {
   const [curveIndex, setCurveIndex] = useState(0);
   const [randomizer, setRandomizer] = useState(0);
 
+  const [currentPage, setCurrentPage] = useState(0);
+
   const handlePress = () => {
     setRandomizer(Math.random());
   };
@@ -42,13 +45,22 @@ const Score = () => {
             Switch curve
           </Button>
         </View>
-
+        <ScoreDetails pageNumber={currentPage} />
         <FlatList
           key={randomizer}
           horizontal={true}
           data={days}
           renderItem={() => <ScoreGraph curveIndex={curveIndex} />}
           pagingEnabled
+          onMomentumScrollEnd={(e) => {
+            const { contentOffset, layoutMeasurement } = e.nativeEvent;
+
+            let pageNumber = Math.floor(
+              contentOffset.x / layoutMeasurement.width
+            );
+
+            setCurrentPage(pageNumber);
+          }}
         />
       </View>
     </SafeAreaView>

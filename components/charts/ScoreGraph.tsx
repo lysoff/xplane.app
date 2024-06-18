@@ -89,8 +89,8 @@ const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
 
   return (
     <View className="w-[383px] bg-primary items-center flex-col">
-      <View className="w-full h-[300px] relative">
-        <View className="absolute -r-2 top-2 z-40">
+      <View className="w-full relative">
+        <View className="absolute right-2 top-2 z-40">
           <TouchableOpacity onPress={handleSave}>
             <MaterialCommunityIcons
               name="download-circle-outline"
