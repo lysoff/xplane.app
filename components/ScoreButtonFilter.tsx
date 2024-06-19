@@ -39,9 +39,8 @@ const ScoreButtonFilter = ({
         m-3 border-2 flex-col justify-center items-center w-[50px] h-[50px] rounded-full`}
     >
       <Icon
-        strokeOpacity={0.6}
-        strokeWidth={2}
         stroke={selected ? colors.secondary[200] : colors.gray[100]}
+        fill={selected ? colors.secondary[200] : colors.gray[100]}
       />
     </TouchableOpacity>
   );

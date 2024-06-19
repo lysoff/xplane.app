@@ -64,7 +64,7 @@ const ScoreGraph = ({
 
       return {
         x: timestamp,
-        y: 30 * _y + 50,
+        y: 30 * _y + (fields.length - 5.5) * -20,
         field,
       };
     });

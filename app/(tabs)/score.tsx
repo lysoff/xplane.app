@@ -20,7 +20,12 @@ const getRandomWeek = () => {
   ];
 };
 
-const initialFields: FieldType[] = ["grid", "hammer", "globe"];
+const initialFields: FieldType[] = [
+  "toilet phone",
+  "sugar",
+  "smoking",
+  "phone",
+];
 
 const Score = () => {
   const [currentPage, setCurrentPage] = useState(0);

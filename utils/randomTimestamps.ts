@@ -14,7 +14,7 @@ export const randomTimestamps = () => {
     ).toJSDate();
 
     const field = Object.keys(Icons)[
-      Math.trunc(Math.random() * 3)
+      Math.trunc(Math.random() * 4)
     ] as FieldType;
 
     array.push([timestamp, field]);
