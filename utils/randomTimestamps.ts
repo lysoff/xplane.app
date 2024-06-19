@@ -1,3 +1,4 @@
+import { FieldType, Icons } from "@/components/ScorePoint";
 import { DateTime } from "luxon";
 
 export const randomTimestamps = () => {
@@ -5,26 +6,25 @@ export const randomTimestamps = () => {
   const end = DateTime.now().endOf("day");
   const diff = end.toMillis() - start.toMillis();
 
-  const array = [];
-
-  const iconIndexes = [];
+  const array: Array<[Date, FieldType | undefined]> = [];
 
   for (let i = 0; i < 10; i++) {
-    array.push(
-      DateTime.fromMillis(
-        start.toMillis() + Math.trunc(Math.random() * diff)
-      ).toJSDate()
-    );
-    iconIndexes.push(Math.trunc(Math.random() * 3));
+    const timestamp = DateTime.fromMillis(
+      start.toMillis() + Math.trunc(Math.random() * diff)
+    ).toJSDate();
+
+    const field = Object.keys(Icons)[
+      Math.trunc(Math.random() * 3)
+    ] as FieldType;
+
+    array.push([timestamp, field]);
   }
 
-  array.sort((a, b) => (a > b ? 1 : -1));
+  array.sort((a, b) => (a[0] > b[0] ? 1 : -1));
 
-  return {
-    start: start.toJSDate(),
-    end: end.toJSDate(),
-    diff,
-    array,
-    iconIndexes,
-  };
+  return [
+    [start.toJSDate(), undefined],
+    ...array,
+    [end.toJSDate(), undefined],
+  ] as [Date, FieldType | undefined][];
 };

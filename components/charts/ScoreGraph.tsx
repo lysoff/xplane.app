@@ -1,18 +1,17 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React, { useMemo, useRef, useState } from "react";
 import * as MediaLibrary from "expo-media-library";
-import { randomTimestamps } from "@/utils/randomTimestamps";
 import * as shape from "d3-shape";
 import * as scale from "d3-scale";
 import { G, Path, Svg } from "react-native-svg";
 import { colors } from "@/constants/colors";
 import { DateTime } from "luxon";
-import ScorePoint from "@/components/ScorePoint";
+import ScorePoint, { FieldType } from "@/components/ScorePoint";
 import AnimatedPath from "@/components/charts/AnimatedPath";
 import ViewShot from "react-native-view-shot";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const curves = [
+export const curves = [
   shape.curveBumpX,
   shape.curveBumpY,
   shape.curveCardinal,
@@ -27,21 +26,20 @@ const curves = [
 
 interface ScoreGraphProps {
   curveIndex: number;
+  data: [Date, FieldType | undefined][];
+  fields: FieldType[];
 }
 
-const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
-  const timestamps = useMemo(() => randomTimestamps(), []);
-
-  const [selected, setSelected] = useState<{ x: number }>();
+const ScoreGraph = ({ data, curveIndex, fields }: ScoreGraphProps) => {
+  const [selected, setSelected] = useState<{ timestamp: Date }>();
 
   const ref = useRef(null);
 
+  const start = useMemo(() => data.at(0)?.[0] || 0, [data]);
+  const end = useMemo(() => data.at(-1)?.[0] || 0, [data]);
+
   const x = useMemo(
-    () =>
-      scale
-        .scaleTime()
-        .range([30, 370])
-        .domain([timestamps.start, timestamps.end]),
+    () => scale.scaleTime().range([30, 370]).domain([start, end]),
     []
   );
 
@@ -50,31 +48,27 @@ const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
   const horTicks = y.ticks(8);
   const vertTicks = x.ticks(8);
 
-  const data: any[] = [{ x: timestamps.start, y: 0, iconIndex: undefined }];
+  const items = useMemo(() => {
+    return data.map(([timestamp, field]) => {
+      let _y = fields.findIndex((_field) => _field === field);
 
-  timestamps.array.forEach((item, index) => {
-    const iconIndex = timestamps.iconIndexes[index];
-
-    data.push({
-      x: item,
-      y: 30 * iconIndex + 50,
-      iconIndex,
+      return {
+        x: timestamp,
+        y: 30 * _y + 50,
+        field,
+      };
     });
-  });
-
-  data.push({ x: timestamps.end, y: data.at(-1).y });
-
-  data[0].y = data[1]?.y;
+  }, [data]);
 
   const line = shape
     .line()
     .x((d: any) => x(d.x))
     .y((d: any) => y(d.y))
     .defined((item: any) => typeof item.y === "number")
-    .curve(curves[curveIndex])(data as any);
+    .curve(curves[curveIndex])(items as any);
 
   const onScorePointClicked = (item: any) => {
-    setSelected(item.x === selected?.x ? null : item);
+    setSelected(item.timestamp === selected?.timestamp ? null : item);
   };
 
   const handleSave = () => {
@@ -140,7 +134,7 @@ const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
             {vertTicks.length > 0 && (
               <G>
                 <Path
-                  d={`M${x(timestamps.end)} 300 L${x(timestamps.end)} 0`}
+                  d={`M${x(end)} 300 L${x(end)} 0`}
                   stroke={colors.gray[100]}
                   opacity={0.2}
                 />
@@ -153,8 +147,8 @@ const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
               fill="none"
               stroke={colors.secondary[200]}
             />
-            {data
-              .filter((item) => typeof item.iconIndex !== "undefined")
+            {items
+              .filter((item) => typeof item.field !== "undefined")
               .map((item, index) => {
                 return (
                   <ScorePoint
@@ -162,8 +156,9 @@ const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
                     x={x(item.x)}
                     y={y(item.y)}
                     key={index}
-                    item={item}
-                    selected={selected?.x === item.x}
+                    timestamp={item.x}
+                    field={item.field}
+                    selected={selected?.timestamp === item.x}
                   />
                 );
               })}
@@ -172,7 +167,8 @@ const ScoreGraph = ({ curveIndex }: ScoreGraphProps) => {
         {selected && (
           <View>
             <Text className="text-gray-200">
-              Selected: {DateTime.fromJSDate((selected as any).x).toFormat("t")}
+              Selected:{" "}
+              {DateTime.fromJSDate((selected as any).timestamp).toFormat("t")}
             </Text>
           </View>
         )}

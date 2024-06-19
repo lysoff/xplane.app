@@ -2,32 +2,37 @@ import { FlatList, SafeAreaView, View } from "react-native";
 import React, { useState } from "react";
 import * as shape from "d3-shape";
 import Button from "@/components/Button";
-import ScoreGraph from "@/components/charts/ScoreGraph";
+import ScoreGraph, { curves } from "@/components/charts/ScoreGraph";
 import ScoreDetails from "@/components/charts/ScoreDetails";
+import { randomTimestamps } from "@/utils/randomTimestamps";
+import { FieldType } from "@/components/ScorePoint";
 
-const days = [0, 1, 2, 3, 4, 5];
-
-const curves = [
-  shape.curveBumpX,
-  shape.curveBumpY,
-  shape.curveCardinal,
-  shape.curveCatmullRom,
-  shape.curveMonotoneX,
-  shape.curveMonotoneY,
-  shape.curveNatural,
-  shape.curveStep,
-  shape.curveStepAfter,
-  shape.curveStepBefore,
-];
+const getRandomWeek = () => {
+  return [
+    randomTimestamps(),
+    randomTimestamps(),
+    randomTimestamps(),
+    randomTimestamps(),
+    randomTimestamps(),
+    randomTimestamps(),
+  ];
+};
 
 const Score = () => {
   const [curveIndex, setCurveIndex] = useState(0);
-  const [randomizer, setRandomizer] = useState(0);
+  const [fields, setFields] = useState<FieldType[]>([
+    "grid",
+    "hammer",
+    "globe",
+  ]);
 
+  const [days, setDays] = useState<[Date, FieldType | undefined][][]>(
+    getRandomWeek()
+  );
   const [currentPage, setCurrentPage] = useState(0);
 
   const handlePress = () => {
-    setRandomizer(Math.random());
+    setDays(getRandomWeek());
   };
 
   const handleChangeCurve = () => {
@@ -47,10 +52,11 @@ const Score = () => {
         </View>
         <ScoreDetails pageNumber={currentPage} />
         <FlatList
-          key={randomizer}
           horizontal={true}
           data={days}
-          renderItem={() => <ScoreGraph curveIndex={curveIndex} />}
+          renderItem={({ item }) => (
+            <ScoreGraph fields={fields} data={item} curveIndex={curveIndex} />
+          )}
           pagingEnabled
           onMomentumScrollEnd={(e) => {
             const { contentOffset, layoutMeasurement } = e.nativeEvent;
