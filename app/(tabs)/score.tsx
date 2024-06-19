@@ -1,11 +1,12 @@
 import { FlatList, SafeAreaView, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import ScoreGraph, { curves } from "@/components/charts/ScoreGraph";
 import ScoreDetails from "@/components/charts/ScoreDetails";
 import { randomTimestamps } from "@/utils/randomTimestamps";
 import { FieldType, Icons } from "@/components/charts/ScorePoint";
 import ScoreButtonFilter from "@/components/ScoreButtonFilter";
+import { ConsoleColor } from "@/utils/utils";
 
 const getRandomWeek = () => {
   return [
@@ -19,6 +20,7 @@ const getRandomWeek = () => {
 };
 
 const Score = () => {
+  const [currentPage, setCurrentPage] = useState(0);
   const [curveIndex, setCurveIndex] = useState(0);
   const [fields, setFields] = useState<FieldType[]>([
     "grid",
@@ -29,7 +31,6 @@ const Score = () => {
   const [days, setDays] = useState<[Date, FieldType | undefined][][]>(
     getRandomWeek()
   );
-  const [currentPage, setCurrentPage] = useState(0);
 
   const handlePress = () => {
     setDays(getRandomWeek());
@@ -39,8 +40,12 @@ const Score = () => {
     setCurveIndex(curveIndex + 1 >= curves.length ? 0 : curveIndex + 1);
   };
 
-  const handleFilterPress = async (field: FieldType) => {
-    console.log({ field });
+  const handleFilterPress = (field: FieldType) => {
+    if (fields.includes(field)) {
+      setFields(fields.filter((_field) => _field !== field));
+    } else {
+      setFields([...fields, field]);
+    }
   };
 
   return (
@@ -80,6 +85,7 @@ const Score = () => {
               key={field}
               field={field}
               onPress={handleFilterPress}
+              selected={fields.includes(field)}
             />
           ))}
         </View>

@@ -6,10 +6,15 @@ import { FieldType, Icons } from "./charts/ScorePoint";
 
 interface ScoreButtonFilterProps {
   field: FieldType;
-  onPress: (field: FieldType) => Promise<void>;
+  onPress: (field: FieldType) => void;
+  selected: boolean;
 }
 
-const ScoreButtonFilter = ({ field, onPress }: ScoreButtonFilterProps) => {
+const ScoreButtonFilter = ({
+  field,
+  onPress,
+  selected,
+}: ScoreButtonFilterProps) => {
   const [disabled, setDisabed] = useState(false);
 
   const handlePress = useCallback(async () => {
@@ -21,7 +26,7 @@ const ScoreButtonFilter = ({ field, onPress }: ScoreButtonFilterProps) => {
     } finally {
       setDisabed(false);
     }
-  }, [field]);
+  }, [onPress, field]);
 
   const Icon = Icons[field];
 
@@ -29,12 +34,14 @@ const ScoreButtonFilter = ({ field, onPress }: ScoreButtonFilterProps) => {
     <TouchableOpacity
       disabled={disabled}
       onPress={handlePress}
-      className="m-3 border-2 flex-col justify-center items-center border-secondary-200 border-opacity-60 w-[50px] h-[50px] rounded-full"
+      className={`
+        ${selected ? "border-secondary-200" : "border-gray-200"}
+        m-3 border-2 flex-col justify-center items-center w-[50px] h-[50px] rounded-full`}
     >
       <Icon
         strokeOpacity={0.6}
         strokeWidth={2}
-        stroke={colors.secondary[200]}
+        stroke={selected ? colors.secondary[200] : colors.gray[100]}
       />
     </TouchableOpacity>
   );

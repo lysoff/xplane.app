@@ -30,10 +30,14 @@ interface ScoreGraphProps {
   fields: FieldType[];
 }
 
-const ScoreGraph = ({ data, curveIndex, fields }: ScoreGraphProps) => {
+const ScoreGraph = ({ data: _data, curveIndex, fields }: ScoreGraphProps) => {
   const [selected, setSelected] = useState<{ timestamp: Date }>();
 
   const ref = useRef(null);
+
+  const data = useMemo(() => {
+    return _data.filter(([, field]) => !field || fields.includes(field));
+  }, [_data, fields]);
 
   const start = useMemo(() => data.at(0)?.[0] || 0, [data]);
   const end = useMemo(() => data.at(-1)?.[0] || 0, [data]);
