@@ -4,6 +4,7 @@ import { Field } from "@/services/fieldService";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
+import { Icons } from "./charts/ScorePoint";
 
 interface ScoreButtonProps {
   field: Field;
@@ -24,16 +25,17 @@ const ScoreButton = ({ field, onPress }: ScoreButtonProps) => {
     }
   }, [field]);
 
+  const IconComponent = Icons[field.icon];
+
   return (
     <TouchableOpacity
       disabled={disabled}
       onPress={handlePress}
       className="m-3 border-2 flex-col justify-center items-center border-secondary-200 w-[100px] h-[100px] rounded-full"
     >
-      <MaterialCommunityIcons
-        name={field.icon as any}
-        size={30}
-        color={colors.secondary[200]}
+      <IconComponent
+        stroke={colors.secondary[200]}
+        fill={colors.secondary[200]}
       />
       <Text className="text-secondary">{field.name}</Text>
     </TouchableOpacity>

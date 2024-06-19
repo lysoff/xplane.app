@@ -13,6 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { colors } from "@/constants/colors";
 import { router } from "expo-router";
+import { Icons } from "./charts/ScorePoint";
 
 interface FieldCardProps {
   field: Field;
@@ -82,6 +83,8 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
     }
   };
 
+  const IconComponent = Icons[field.icon];
+
   return (
     <GestureDetector gesture={pan}>
       <Animated.View style={containerStyle}>
@@ -109,13 +112,15 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
               onPress={handleEdit}
               className="flex-row items-center"
             >
-              <MaterialCommunityIcons
-                name={field.icon as any}
-                size={30}
-                color={
+              <IconComponent
+                fill={
+                  field.active ? colors.secondary.DEFAULT : colors.gray[100]
+                }
+                stroke={
                   field.active ? colors.secondary.DEFAULT : colors.gray[100]
                 }
               />
+
               <Text
                 className={`ml-4 text-xl ${
                   field.active ? "text-secondary" : "text-gray-100"

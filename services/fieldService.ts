@@ -1,3 +1,4 @@
+import { FieldType } from "@/components/charts/ScorePoint";
 import * as api from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
 import { Models } from "react-native-appwrite";
@@ -5,7 +6,7 @@ import { Models } from "react-native-appwrite";
 export type Field = Models.Document & {
   name: string;
   active: boolean;
-  icon: string;
+  icon: FieldType;
 };
 
 export const useFields = () => useAppwrite<Field[]>(api.listFields);
