@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import React, { useMemo, useRef, useState } from "react";
+import React, { ReactNode, useMemo, useRef, useState } from "react";
 import * as MediaLibrary from "expo-media-library";
 import * as shape from "d3-shape";
 import * as scale from "d3-scale";
@@ -25,12 +25,18 @@ export const curves = [
 ];
 
 interface ScoreGraphProps {
+  title: ReactNode;
   curveIndex: number;
   data: [Date, FieldType | undefined][];
   fields: FieldType[];
 }
 
-const ScoreGraph = ({ data: _data, curveIndex, fields }: ScoreGraphProps) => {
+const ScoreGraph = ({
+  title,
+  data: _data,
+  curveIndex,
+  fields,
+}: ScoreGraphProps) => {
   const [selected, setSelected] = useState<{ timestamp: Date }>();
 
   const ref = useRef(null);
@@ -87,6 +93,7 @@ const ScoreGraph = ({ data: _data, curveIndex, fields }: ScoreGraphProps) => {
 
   return (
     <View className="w-[383px] relative bg-primary items-center flex-col">
+      <View className="absolute left-2 top-2 z-40">{title}</View>
       <View className="absolute right-2 top-2 z-40">
         <TouchableOpacity onPress={handleSave}>
           <MaterialCommunityIcons
