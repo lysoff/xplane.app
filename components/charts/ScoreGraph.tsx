@@ -6,7 +6,7 @@ import * as scale from "d3-scale";
 import { G, Path, Svg } from "react-native-svg";
 import { colors } from "@/constants/colors";
 import { DateTime } from "luxon";
-import ScorePoint, { FieldType } from "@/components/ScorePoint";
+import ScorePoint, { FieldType } from "@/components/charts/ScorePoint";
 import AnimatedPath from "@/components/charts/AnimatedPath";
 import ViewShot from "react-native-view-shot";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -82,97 +82,94 @@ const ScoreGraph = ({ data, curveIndex, fields }: ScoreGraphProps) => {
   };
 
   return (
-    <View className="w-[383px] bg-primary items-center flex-col">
-      <View className="w-full relative">
-        <View className="absolute right-2 top-2 z-40">
-          <TouchableOpacity onPress={handleSave}>
-            <MaterialCommunityIcons
-              name="download-circle-outline"
-              color={colors.secondary[200]}
-              style={{ opacity: 0.5 }}
-              size={30}
-            />
-          </TouchableOpacity>
-        </View>
-        <ViewShot
-          ref={ref}
-          style={{ backgroundColor: "transparent" }}
-          options={{
-            fileName: "Your-File-Name",
-            format: "png",
-            quality: 1,
+    <View className="w-[383px] relative bg-primary items-center flex-col">
+      <View className="absolute right-2 top-2 z-40">
+        <TouchableOpacity onPress={handleSave}>
+          <MaterialCommunityIcons
+            name="download-circle-outline"
+            color={colors.secondary[200]}
+            style={{ opacity: 0.5 }}
+            size={30}
+          />
+        </TouchableOpacity>
+      </View>
+      <ViewShot
+        ref={ref}
+        style={{ backgroundColor: "transparent" }}
+        options={{
+          fileName: "Your-File-Name",
+          format: "png",
+          quality: 1,
+        }}
+      >
+        <Svg
+          fill={colors.primary}
+          fillOpacity={0.2}
+          style={{
+            height: 300,
+            width: 390,
+            backgroundColor: "transparent",
           }}
         >
-          <Svg
-            fill={colors.primary}
-            fillOpacity={0.2}
-            style={{
-              height: 300,
-              width: 390,
-              borderRightWidth: 0,
-              backgroundColor: "transparent",
-            }}
-          >
-            {horTicks.map((tick, index) => {
-              const d = `M0 ${y(tick)} L500 ${y(tick)}`;
+          {horTicks.map((tick, index) => {
+            const d = `M0 ${y(tick)} L500 ${y(tick)}`;
 
-              return (
-                <G key={index}>
-                  <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
-                </G>
-              );
-            })}
-            {vertTicks.map((tick, index) => {
-              const d = `M${x(tick)} 300 L${x(tick)} 0`;
-
-              return (
-                <G key={index}>
-                  <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
-                </G>
-              );
-            })}
-            {vertTicks.length > 0 && (
-              <G>
-                <Path
-                  d={`M${x(end)} 300 L${x(end)} 0`}
-                  stroke={colors.gray[100]}
-                  opacity={0.2}
-                />
+            return (
+              <G key={index}>
+                <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
               </G>
-            )}
-            <AnimatedPath
-              animate={true}
-              animationDuration={500}
-              d={line || ""}
-              fill="none"
-              stroke={colors.secondary[200]}
-            />
-            {items
-              .filter((item) => typeof item.field !== "undefined")
-              .map((item, index) => {
-                return (
-                  <ScorePoint
-                    onPress={onScorePointClicked}
-                    x={x(item.x)}
-                    y={y(item.y)}
-                    key={index}
-                    timestamp={item.x}
-                    field={item.field}
-                    selected={selected?.timestamp === item.x}
-                  />
-                );
-              })}
-          </Svg>
-        </ViewShot>
-        {selected && (
-          <View>
-            <Text className="text-gray-200">
-              Selected:{" "}
-              {DateTime.fromJSDate((selected as any).timestamp).toFormat("t")}
-            </Text>
-          </View>
-        )}
-      </View>
+            );
+          })}
+          {vertTicks.map((tick, index) => {
+            const d = `M${x(tick)} 300 L${x(tick)} 0`;
+
+            return (
+              <G key={index}>
+                <Path d={d} stroke={colors.gray[100]} opacity={0.2} />
+              </G>
+            );
+          })}
+          {vertTicks.length > 0 && (
+            <G>
+              <Path
+                d={`M${x(end)} 300 L${x(end)} 0`}
+                stroke={colors.gray[100]}
+                opacity={0.2}
+              />
+            </G>
+          )}
+          <AnimatedPath
+            animate={true}
+            animationDuration={500}
+            d={line || ""}
+            fill="none"
+            stroke={colors.secondary[200]}
+          />
+          {items
+            .filter((item) => typeof item.field !== "undefined")
+            .map((item, index) => {
+              return (
+                <ScorePoint
+                  onPress={onScorePointClicked}
+                  x={x(item.x)}
+                  y={y(item.y)}
+                  key={index}
+                  timestamp={item.x}
+                  field={item.field}
+                  selected={selected?.timestamp === item.x}
+                />
+              );
+            })}
+        </Svg>
+      </ViewShot>
+      {selected && (
+        <View>
+          <Text className="text-gray-200">
+            Selected:{" "}
+            {DateTime.fromJSDate((selected as any).timestamp).toFormat("t")}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
