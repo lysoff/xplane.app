@@ -1,5 +1,5 @@
 import { FlatList, SafeAreaView, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Button from "@/components/Button";
 import ScoreGraph, { curves } from "@/components/charts/ScoreGraph";
 import ScoreDetails from "@/components/charts/ScoreDetails";
@@ -9,6 +9,8 @@ import ScoreButtonFilter from "@/components/ScoreButtonFilter";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { useListScore } from "@/services/scoreService";
+import { Field } from "@/services/fieldService";
+import { DateTime } from "luxon";
 
 const getRandomWeek = () => {
   return [
@@ -35,9 +37,48 @@ const Score = () => {
 
   const { data: scores } = useListScore();
 
-  console.log(scores?.map(({ fields }) => fields));
+  const days = useMemo(() => {
+    const result: [Date, FieldType?][][] = [];
+    if (!scores) return result;
 
-  const [days, setDays] = useState<[Date, FieldType | undefined][][]>(
+    let minDate = new Date().toISOString();
+    const scoreDays: Record<string, [Date, FieldType?][]> = {};
+
+    for (const score of scores) {
+      const scoreDate = new Date(score.$createdAt);
+      const scoreDay = DateTime.fromJSDate(scoreDate).startOf("day").toISO();
+
+      const scoreField = (score.fields as Field).icon;
+      if (!scoreDay) continue;
+
+      if (scoreDay < minDate) {
+        minDate = scoreDay;
+      }
+
+      if (!scoreDays[scoreDay]) {
+        scoreDays[scoreDay] = [];
+      }
+
+      scoreDays[scoreDay].push([scoreDate, scoreField]);
+    }
+
+    while (new Date(minDate) <= new Date()) {
+      const _data: [Date, FieldType?][] = scoreDays[minDate] || [];
+      _data.unshift([new Date(minDate), undefined]);
+      _data.push([
+        DateTime.fromISO(minDate).endOf("day").toJSDate(),
+        undefined,
+      ]);
+
+      result.push(_data);
+
+      minDate = DateTime.fromISO(minDate).plus({ days: 1 }).toISO() || Date();
+    }
+
+    return result;
+  }, [scores]);
+
+  const [daysX, setDays] = useState<[Date, FieldType | undefined][][]>(
     getRandomWeek()
   );
 

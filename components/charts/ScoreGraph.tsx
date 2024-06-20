@@ -27,7 +27,7 @@ export const curves = [
 interface ScoreGraphProps {
   title: ReactNode;
   curveIndex: number;
-  data: [Date, FieldType | undefined][];
+  data: [Date, FieldType?][];
   fields: FieldType[];
 }
 
