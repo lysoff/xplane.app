@@ -13,12 +13,14 @@ import Button from "../../components/Button";
 import { Link, router } from "expo-router";
 import { MaterialCommunityIcons as Icon } from "@/constants/icons";
 import { useGlobalContext } from "@/context/GlobalContext";
-import * as authService from "@/services/authService";
+import { useSignUp } from "@/services/authService";
 
 const SignUp = () => {
   const { setIsLogged, setUserInfo } = useGlobalContext();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { mutateAsync: signUp } = useSignUp();
 
   const [form, setForm] = useState({
     username: "",
@@ -34,7 +36,7 @@ const SignUp = () => {
     }
 
     try {
-      const user = await authService.signUp({
+      const user = await signUp({
         email: form.email,
         password: form.password,
         username: form.username,

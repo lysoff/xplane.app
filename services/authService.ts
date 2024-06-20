@@ -2,6 +2,7 @@ import * as appwrite from "@/lib/appwrite";
 import * as WebBrowser from "expo-web-browser";
 import * as cookieService from "./cookieService";
 import * as googleService from "./googleService";
+import { useMutation } from "@tanstack/react-query";
 
 interface SignUpParams {
   username: string;
@@ -23,6 +24,11 @@ export const signUp = async ({ username, email, password }: SignUpParams) => {
 
   return user;
 };
+
+export const useSignUp = () =>
+  useMutation({
+    mutationFn: signUp,
+  });
 
 export const signIn = async (email: string, password: string) => {
   await appwrite.signIn(email, password);
