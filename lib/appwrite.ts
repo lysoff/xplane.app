@@ -1,3 +1,4 @@
+import { Field } from "@/services/fieldService";
 import {
   Account,
   Client,
@@ -182,7 +183,7 @@ export const listFields = async () => {
   const account = await getCurrentAccount();
   const user = await getUser(account.email);
 
-  const res = await databases.listDocuments(
+  const res = await databases.listDocuments<Field>(
     config.databaseId,
     config.fieldsCollectionId,
     [Query.equal("users", user.$id)]
@@ -191,7 +192,12 @@ export const listFields = async () => {
   return res.documents;
 };
 
-export const updateField = async (id: string, updatedPart: any) => {
+interface UpdateFieldParams {
+  id: string;
+  updatedPart: any;
+}
+
+export const updateField = async ({ id, updatedPart }: UpdateFieldParams) => {
   try {
     return databases.updateDocument(
       config.databaseId,

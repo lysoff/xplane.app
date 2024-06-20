@@ -1,6 +1,6 @@
 import { FieldType } from "@/components/charts/ScorePoint";
 import * as api from "@/lib/appwrite";
-import useAppwrite from "@/lib/useAppwrite";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Models } from "react-native-appwrite";
 
 export type Field = Models.Document & {
@@ -9,18 +9,47 @@ export type Field = Models.Document & {
   icon: FieldType;
 };
 
-export const useFields = () => useAppwrite<Field[]>(api.listFields);
 export const useField = (id: string) =>
-  useAppwrite<Field>(() => api.getField(id));
+  useQuery({
+    queryKey: ["fields", id],
+    queryFn: () => api.getField(id),
+  });
 
-export const createField = async (name: string, icon: string) => {
-  return api.createField({ name, icon, active: true });
+export const useFields = () =>
+  useQuery({
+    queryKey: ["fields"],
+    queryFn: api.listFields,
+  });
+
+export const useCreateField = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: api.createField,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fields"] });
+    },
+  });
 };
 
-export const deleteField = async (id: string) => {
-  return api.deleteField({ id });
+export const useDeleteField = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: api.deleteField,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fields"] });
+    },
+  });
 };
 
-export const updateField = async (id: string, updated: Partial<Field>) => {
-  return api.updateField(id, updated);
+export const useUpdateField = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: api.updateField,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fields"] });
+    },
+  });
 };

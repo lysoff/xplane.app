@@ -19,7 +19,7 @@ import { createScore } from "@/services/scoreService";
 const Home = () => {
   const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
 
-  const { data, loading } = useFields();
+  const { data } = useFields();
   const fields = useMemo(() => {
     if (!data) return null;
 

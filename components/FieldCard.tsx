@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { Field, updateField } from "@/services/fieldService";
+import { Field, useUpdateField } from "@/services/fieldService";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Gesture, GestureDetector, Switch } from "react-native-gesture-handler";
 import Animated, {
@@ -24,6 +24,8 @@ const X_THRESHOLD = -80;
 const LINE_HEIGHT = 70;
 
 const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
+  const { mutateAsync: updateField } = useUpdateField();
+
   const opacity = useSharedValue(1);
   const height = useSharedValue(LINE_HEIGHT);
   const [field, setField] = useState({ ..._field });
@@ -77,7 +79,7 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
   const handleSwitch = async (value: boolean) => {
     try {
       setField({ ...field, active: value });
-      await updateField(field.$id, { active: value });
+      await updateField({ id: field.$id, updatedPart: { active: value } });
     } catch (e) {
       console.log(e);
     }

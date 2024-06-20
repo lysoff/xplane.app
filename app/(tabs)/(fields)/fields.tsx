@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, RefreshControl } from "react-native";
 import React, { useCallback, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { deleteField, useFields } from "@/services/fieldService";
+import { useDeleteField, useFields } from "@/services/fieldService";
 import EmptyState from "@/components/EmptyState";
 import FieldCard from "@/components/FieldCard";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -11,7 +11,8 @@ import { colors } from "@/constants/colors";
 import Loader from "@/components/Loader";
 
 const Fields = () => {
-  const { data: fields, loading, refetch } = useFields();
+  const { data: fields, isLoading, refetch } = useFields();
+  const { mutateAsync: deleteField } = useDeleteField();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -22,12 +23,12 @@ const Fields = () => {
     setRefreshing(false);
   };
   const handleDelete = useCallback(async (id: string) => {
-    await deleteField(id);
+    await deleteField({ id });
   }, []);
 
   return (
     <SafeAreaView className="h-full w-full bg-primary  items-center justify-center">
-      {loading ? (
+      {isLoading ? (
         <Loader isLoading={true} />
       ) : (
         <Animated.FlatList
