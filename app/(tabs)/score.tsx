@@ -103,7 +103,7 @@ const Score = () => {
               <View className="w-[130px] text-ellipsis">
                 <Text className="text-gray-200 text-xl">{field}</Text>
               </View>
-              <View className="flex-row">
+              <View className="flex-row flex-1 flex-wrap">
                 {days[currentPage]
                   .filter(([, _field]) => field === _field)
                   .map((_, index) => (

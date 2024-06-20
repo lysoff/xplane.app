@@ -154,7 +154,8 @@ const ScoreGraph = ({
             animationDuration={500}
             d={line || ""}
             fill="none"
-            stroke={colors.secondary[200]}
+            stroke={colors.gray[100]}
+            strokeOpacity={0.6}
           />
           {items
             .filter((item) => typeof item.field !== "undefined")

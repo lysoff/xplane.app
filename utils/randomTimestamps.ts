@@ -8,7 +8,7 @@ export const randomTimestamps = () => {
 
   const array: Array<[Date, FieldType | undefined]> = [];
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 30; i++) {
     const timestamp = DateTime.fromMillis(
       start.toMillis() + Math.trunc(Math.random() * diff)
     ).toJSDate();
