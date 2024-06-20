@@ -1,4 +1,5 @@
 import { Field } from "@/services/fieldService";
+import { Score } from "@/services/scoreService";
 import {
   Account,
   Client,
@@ -161,6 +162,19 @@ export const createScore = async ({
   } catch (e) {
     console.log(e);
   }
+};
+
+export const listScores = async () => {
+  const account = await getCurrentAccount();
+  const user = await getUser(account.email);
+
+  const res = await databases.listDocuments<Score>(
+    config.databaseId,
+    config.scoreCollectionId,
+    [Query.equal("users", user.$id)]
+  );
+
+  return res.documents;
 };
 
 interface DeleteFieldParams {

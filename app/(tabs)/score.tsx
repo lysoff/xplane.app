@@ -8,6 +8,7 @@ import { FieldType, Icons } from "@/components/charts/ScorePoint";
 import ScoreButtonFilter from "@/components/ScoreButtonFilter";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
+import { useListScore } from "@/services/scoreService";
 
 const getRandomWeek = () => {
   return [
@@ -31,6 +32,10 @@ const Score = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [curveIndex, setCurveIndex] = useState(0);
   const [fields, setFields] = useState<FieldType[]>(initialFields);
+
+  const { data: scores } = useListScore();
+
+  console.log(scores?.map(({ fields }) => fields));
 
   const [days, setDays] = useState<[Date, FieldType | undefined][][]>(
     getRandomWeek()

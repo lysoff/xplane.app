@@ -1,4 +1,5 @@
 import * as api from "@/lib/appwrite";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Models } from "react-native-appwrite";
 
 export type Score = Models.Document & {
@@ -9,10 +10,20 @@ export type Score = Models.Document & {
   users: string; // $id
 };
 
-export const createScore = async ({
-  success,
-  comment,
-  fields,
-}: Pick<Score, "success" | "comment" | "fields">) => {
-  return api.createScore({ success, comment, fields });
+export const useCreateScore = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: api.createScore,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["scores"] });
+    },
+  });
+};
+
+export const useListScore = () => {
+  return useQuery({
+    queryKey: ["scores"],
+    queryFn: api.listScores,
+  });
 };

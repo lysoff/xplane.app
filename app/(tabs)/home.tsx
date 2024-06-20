@@ -14,10 +14,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { Field, useFields } from "@/services/fieldService";
 import ScoreButton from "@/components/ScoreButton";
-import { createScore } from "@/services/scoreService";
+import { useCreateScore } from "@/services/scoreService";
 
 const Home = () => {
   const { userInfo, setUserInfo, setIsLogged } = useGlobalContext();
+  const { mutateAsync: createScore } = useCreateScore();
 
   const { data } = useFields();
   const fields = useMemo(() => {
