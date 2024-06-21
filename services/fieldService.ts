@@ -15,10 +15,10 @@ export const useField = (id: string) =>
     queryFn: () => api.getField(id),
   });
 
-export const useFields = () =>
+export const useFields = (activeOnly = false) =>
   useQuery({
-    queryKey: ["fields"],
-    queryFn: api.listFields,
+    queryKey: ["fields", { activeOnly }],
+    queryFn: () => api.listFields(activeOnly),
   });
 
 export const useCreateField = () => {

@@ -31,7 +31,8 @@ const Score = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [curveIndex, setCurveIndex] = useState(0);
 
-  const { data: initialFields = [] } = useFields();
+  const { data: initialFields = [] } = useFields(true);
+
   const [fields, setFields] = useState(initialFields);
   useEffect(() => {
     if (fields !== initialFields) {
@@ -118,12 +119,12 @@ const Score = () => {
           </Button>
         </View>
         <View className="flex-row justify-center items-center gap-2">
-          {(Object.keys(Icons) as FieldType[]).map((field) => (
+          {initialFields.map(({ icon }) => (
             <ScoreButtonFilter
-              key={field}
-              field={field}
+              key={icon}
+              field={icon}
               onPress={handleFilterPress}
-              selected={mapFieldIcons(fields).includes(field)}
+              selected={mapFieldIcons(fields).includes(icon)}
             />
           ))}
         </View>

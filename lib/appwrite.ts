@@ -193,14 +193,19 @@ export const deleteField = async ({ id }: DeleteFieldParams) => {
   }
 };
 
-export const listFields = async () => {
+export const listFields = async (activeOnly: boolean) => {
   const account = await getCurrentAccount();
   const user = await getUser(account.email);
+
+  const userQuery = Query.equal("users", user.$id);
+  const query = activeOnly
+    ? [Query.and([userQuery, Query.equal("active", true)])]
+    : [userQuery];
 
   const res = await databases.listDocuments<Field>(
     config.databaseId,
     config.fieldsCollectionId,
-    [Query.equal("users", user.$id)]
+    query
   );
 
   return res.documents;
