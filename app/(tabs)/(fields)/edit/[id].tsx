@@ -1,6 +1,6 @@
 import React from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { updateField, useField } from "@/services/fieldService";
+import { useUpdateField, useField } from "@/services/fieldService";
 import FieldForm, { FieldFormParams } from "@/components/FieldForm";
 import Loader from "@/components/Loader";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -8,12 +8,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Edit = () => {
   const { id } = useLocalSearchParams();
 
-  const { data, loading } = useField(String(id));
+  const { data: field, isLoading } = useField(String(id));
+  const { mutateAsync: updateField } = useUpdateField();
 
   const handleSave = async ({ $id, name, icon }: FieldFormParams) => {
-    await updateField(String($id), {
-      name,
-      icon,
+    await updateField({
+      id: String($id),
+      updatedPart: {
+        name,
+        icon,
+      },
     });
 
     router.back();
@@ -21,13 +25,13 @@ const Edit = () => {
 
   return (
     <SafeAreaView className="h-full w-full bg-primary items-center justify-center">
-      {loading && <Loader isLoading={true} />}
-      {data && (
+      {isLoading && <Loader isLoading={true} />}
+      {field && (
         <FieldForm
           title="Edit the field"
           buttonText="Update"
           onSave={handleSave}
-          field={data}
+          field={field}
         />
       )}
     </SafeAreaView>

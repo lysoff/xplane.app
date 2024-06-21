@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Field, useUpdateField } from "@/services/fieldService";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Gesture, GestureDetector, Switch } from "react-native-gesture-handler";
@@ -28,7 +28,13 @@ const FieldCard = ({ field: _field, onDelete }: FieldCardProps) => {
 
   const opacity = useSharedValue(1);
   const height = useSharedValue(LINE_HEIGHT);
-  const [field, setField] = useState({ ..._field });
+  const [field, setField] = useState(_field);
+
+  useEffect(() => {
+    if (field !== _field) {
+      setField(_field);
+    }
+  }, [_field]);
 
   const translationX = useSharedValue(0);
   const currentTranslateX = useSharedValue(0);

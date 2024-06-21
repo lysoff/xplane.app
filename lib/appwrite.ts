@@ -226,7 +226,7 @@ export const updateField = async ({ id, updatedPart }: UpdateFieldParams) => {
 
 export const getField = async (id: string) => {
   try {
-    return databases.getDocument(
+    return databases.getDocument<Field>(
       config.databaseId,
       config.fieldsCollectionId,
       id

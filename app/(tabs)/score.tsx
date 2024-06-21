@@ -1,5 +1,5 @@
 import { FlatList, SafeAreaView, Text, View } from "react-native";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Button from "@/components/Button";
 import ScoreGraph, { curves } from "@/components/charts/ScoreGraph";
 import ScoreDetails from "@/components/charts/ScoreDetails";
@@ -9,7 +9,7 @@ import ScoreButtonFilter from "@/components/ScoreButtonFilter";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { useListScore } from "@/services/scoreService";
-import { Field } from "@/services/fieldService";
+import { Field, useFields } from "@/services/fieldService";
 import { DateTime } from "luxon";
 
 const getRandomWeek = () => {
@@ -23,17 +23,21 @@ const getRandomWeek = () => {
   ];
 };
 
-const initialFields: FieldType[] = [
-  "toilet phone",
-  "sugar",
-  "smoking",
-  "phone",
-];
+const mapFieldIcons = (fields: Field[]) => {
+  return fields.map(({ icon }) => icon);
+};
 
 const Score = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [curveIndex, setCurveIndex] = useState(0);
-  const [fields, setFields] = useState<FieldType[]>(initialFields);
+
+  const { data: initialFields = [] } = useFields();
+  const [fields, setFields] = useState(initialFields);
+  useEffect(() => {
+    if (fields !== initialFields) {
+      setFields(initialFields);
+    }
+  }, [initialFields]);
 
   const { data: scores } = useListScore();
 
@@ -91,10 +95,14 @@ const Score = () => {
   };
 
   const handleFilterPress = (field: FieldType) => {
-    if (fields.includes(field)) {
-      setFields(fields.filter((_field) => _field !== field));
+    if (mapFieldIcons(fields).includes(field)) {
+      setFields(fields.filter(({ icon }) => icon !== field));
     } else {
-      setFields([...fields, field]);
+      setFields(
+        initialFields.filter(
+          ({ icon }) => mapFieldIcons(fields).includes(icon) || icon === field
+        )
+      );
     }
   };
 
@@ -115,7 +123,7 @@ const Score = () => {
               key={field}
               field={field}
               onPress={handleFilterPress}
-              selected={fields.includes(field)}
+              selected={mapFieldIcons(fields).includes(field)}
             />
           ))}
         </View>
@@ -126,7 +134,7 @@ const Score = () => {
             renderItem={({ item, index }) => (
               <ScoreGraph
                 title={<ScoreDetails pageNumber={index} />}
-                fields={fields}
+                fields={mapFieldIcons(fields)}
                 data={item}
                 curveIndex={curveIndex}
               />
@@ -145,21 +153,22 @@ const Score = () => {
         </View>
         <View className="w-full">
           {initialFields.map((field) => (
-            <View key={field} className="flex-row">
+            <View key={field.icon} className="flex-row">
               <View className="w-[130px] text-ellipsis">
-                <Text className="text-gray-200 text-xl">{field}</Text>
+                <Text className="text-gray-200 text-xl">{field.name}</Text>
               </View>
               <View className="flex-row flex-1 flex-wrap">
-                {days[currentPage]
-                  .filter(([, _field]) => field === _field)
-                  .map((_, index) => (
-                    <MaterialCommunityIcons
-                      name="plus"
-                      color={colors.gray[100]}
-                      size={24}
-                      key={index}
-                    />
-                  ))}
+                {days[currentPage] &&
+                  days[currentPage]
+                    .filter(([, _field]) => field.icon === _field)
+                    .map((_, index) => (
+                      <MaterialCommunityIcons
+                        name="plus"
+                        color={colors.gray[100]}
+                        size={24}
+                        key={index}
+                      />
+                    ))}
               </View>
             </View>
           ))}

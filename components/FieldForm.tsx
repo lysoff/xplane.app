@@ -8,9 +8,9 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Button from "./Button";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { FieldType, Icons } from "./charts/ScorePoint";
+import { Field } from "@/services/fieldService";
 
 const ICONS: FieldType[] = ["phone", "smoking", "sugar", "toilet phone"];
 
@@ -24,7 +24,7 @@ interface FieldFormProps {
   title: string;
   buttonText: string;
   onSave: (form: FieldFormParams) => Promise<void>;
-  field?: FieldFormParams;
+  field?: Field;
 }
 
 const FieldForm = ({ title, buttonText, onSave, field }: FieldFormProps) => {
