@@ -20,6 +20,8 @@
 		4D6D195B2C25CC120038300F /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D195A2C25CC120038300F /* AppIntent.swift */; };
 		4D6D195D2C25CC130038300F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D6D195C2C25CC130038300F /* Assets.xcassets */; };
 		4D6D19612C25CC130038300F /* LockScreenMenuExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D6D194E2C25CC120038300F /* LockScreenMenuExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4D6D19672C26CEA50038300F /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D19662C26CEA50038300F /* Counter.swift */; };
+		4D6D19692C26CFB40038300F /* Counter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D19682C26CFB40038300F /* Counter.m */; };
 		96905EF65AED1B983A6B3ABC /* libPods-xplaneapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-xplaneapp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -66,6 +68,8 @@
 		4D6D195A2C25CC120038300F /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		4D6D195C2C25CC130038300F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D6D195E2C25CC130038300F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D6D19662C26CEA50038300F /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		4D6D19682C26CFB40038300F /* Counter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Counter.m; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-xplaneapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xplaneapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-xplaneapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xplaneapp.debug.xcconfig"; path = "Target Support Files/Pods-xplaneapp/Pods-xplaneapp.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-xplaneapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xplaneapp.release.xcconfig"; path = "Target Support Files/Pods-xplaneapp/Pods-xplaneapp.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				3ECE898DC35D43EFBF3DE3A6 /* noop-file.swift */,
 				F35878AC4E6C4809A3F87D6D /* xplaneapp-Bridging-Header.h */,
+				4D6D19662C26CEA50038300F /* Counter.swift */,
+				4D6D19682C26CFB40038300F /* Counter.m */,
 			);
 			name = xplaneapp;
 			sourceTree = "<group>";
@@ -412,9 +418,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D6D19672C26CEA50038300F /* Counter.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
+				4D6D19692C26CFB40038300F /* Counter.m in Sources */,
 				0FB3EDF4EFB04FD991D81000 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

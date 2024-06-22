@@ -60,7 +60,7 @@ struct LockScreenMenu: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("LockScreenWidget")
-        .supportedFamilies([ .accessoryRectangular])
+        .supportedFamilies([ .systemMedium])
     }
 }
 
@@ -78,7 +78,7 @@ extension ConfigurationAppIntent {
     }
 }
 
-#Preview(as: .accessoryRectangular) {
+#Preview(as: .systemMedium) {
     LockScreenMenu()
 } timeline: {
     SimpleEntry(date: .now, configuration: .smiley)
