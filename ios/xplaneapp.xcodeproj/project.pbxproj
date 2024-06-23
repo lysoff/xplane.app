@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,46 +11,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		4D6D19702C271DB70038300F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6D196F2C271DB70038300F /* WidgetKit.framework */; };
-		4D6D19722C271DB70038300F /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6D19712C271DB70038300F /* SwiftUI.framework */; };
-		4D6D19752C271DB70038300F /* LockScreenMenuBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D19742C271DB70038300F /* LockScreenMenuBundle.swift */; };
-		4D6D19772C271DB70038300F /* LockScreenMenuLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D19762C271DB70038300F /* LockScreenMenuLiveActivity.swift */; };
-		4D6D19792C271DB70038300F /* LockScreenMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D19782C271DB70038300F /* LockScreenMenu.swift */; };
-		4D6D197B2C271DB70038300F /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D197A2C271DB70038300F /* AppIntent.swift */; };
-		4D6D197D2C271DB90038300F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D6D197C2C271DB90038300F /* Assets.xcassets */; };
-		4D6D19812C271DB90038300F /* LockScreenMenuExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D6D196E2C271DB70038300F /* LockScreenMenuExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4D6D198E2C27235E0038300F /* LockScreenMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D198D2C27235E0038300F /* LockScreenMenuModule.swift */; };
-		4D6D19902C2724220038300F /* LockScreenMenuModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D198F2C2724220038300F /* LockScreenMenuModule.m */; };
-		5A4F0E584956112EFC6B9DF9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7FC6EBE3BBC117CD3EA7F6C0 /* PrivacyInfo.xcprivacy */; };
+		4EE39B1A45A1C97EAB11134B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8FF6D24D8D7A80666A7790EF /* PrivacyInfo.xcprivacy */; };
+		6E44A56C1C754BF0BFDEEEAB /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA18DA8BE15645489EE5E424 /* noop-file.swift */; };
 		96905EF65AED1B983A6B3ABC /* libPods-xplaneapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-xplaneapp.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		D30F910DB1A242B4B8BE56B7 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6183337047C43A8B6DB4768 /* noop-file.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4D6D197F2C271DB90038300F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D6D196D2C271DB70038300F;
-			remoteInfo = LockScreenMenuExtension;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		4D6D19822C271DB90038300F /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				4D6D19812C271DB90038300F /* LockScreenMenuExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* xplaneapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xplaneapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,25 +25,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = xplaneapp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = xplaneapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = xplaneapp/main.m; sourceTree = "<group>"; };
-		1A177BBD0A9A4CCBBE462B21 /* xplaneapp-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; path = "xplaneapp-Bridging-Header.h"; sourceTree = "<group>"; };
-		4D6D196E2C271DB70038300F /* LockScreenMenuExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LockScreenMenuExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D6D196F2C271DB70038300F /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		4D6D19712C271DB70038300F /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		4D6D19742C271DB70038300F /* LockScreenMenuBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenMenuBundle.swift; sourceTree = "<group>"; };
-		4D6D19762C271DB70038300F /* LockScreenMenuLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenMenuLiveActivity.swift; sourceTree = "<group>"; };
-		4D6D19782C271DB70038300F /* LockScreenMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenMenu.swift; sourceTree = "<group>"; };
-		4D6D197A2C271DB70038300F /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
-		4D6D197C2C271DB90038300F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4D6D197E2C271DB90038300F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D6D198D2C27235E0038300F /* LockScreenMenuModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenMenuModule.swift; sourceTree = "<group>"; };
-		4D6D198F2C2724220038300F /* LockScreenMenuModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenMenuModule.m; sourceTree = "<group>"; };
+		3E03A9876E7149D5BD61BA29 /* xplaneapp-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "xplaneapp-Bridging-Header.h"; path = "xplaneapp/xplaneapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-xplaneapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-xplaneapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C2E3173556A471DD304B334 /* Pods-xplaneapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xplaneapp.debug.xcconfig"; path = "Target Support Files/Pods-xplaneapp/Pods-xplaneapp.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D352CD337FB3A3BF06240 /* Pods-xplaneapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xplaneapp.release.xcconfig"; path = "Target Support Files/Pods-xplaneapp/Pods-xplaneapp.release.xcconfig"; sourceTree = "<group>"; };
-		7FC6EBE3BBC117CD3EA7F6C0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = xplaneapp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8FF6D24D8D7A80666A7790EF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = xplaneapp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = xplaneapp/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		E6183337047C43A8B6DB4768 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "xplaneapp/noop-file.swift"; sourceTree = "<group>"; };
+		CA18DA8BE15645489EE5E424 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "xplaneapp/noop-file.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-xplaneapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,15 +43,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				96905EF65AED1B983A6B3ABC /* libPods-xplaneapp.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D6D196B2C271DB70038300F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D6D19722C271DB70038300F /* SwiftUI.framework in Frameworks */,
-				4D6D19702C271DB70038300F /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,9 +59,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				E6183337047C43A8B6DB4768 /* noop-file.swift */,
-				1A177BBD0A9A4CCBBE462B21 /* xplaneapp-Bridging-Header.h */,
-				7FC6EBE3BBC117CD3EA7F6C0 /* PrivacyInfo.xcprivacy */,
+				CA18DA8BE15645489EE5E424 /* noop-file.swift */,
+				3E03A9876E7149D5BD61BA29 /* xplaneapp-Bridging-Header.h */,
+				8FF6D24D8D7A80666A7790EF /* PrivacyInfo.xcprivacy */,
 			);
 			name = xplaneapp;
 			sourceTree = "<group>";
@@ -125,25 +71,8 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-xplaneapp.a */,
-				4D6D196F2C271DB70038300F /* WidgetKit.framework */,
-				4D6D19712C271DB70038300F /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		4D6D19732C271DB70038300F /* LockScreenMenu */ = {
-			isa = PBXGroup;
-			children = (
-				4D6D19742C271DB70038300F /* LockScreenMenuBundle.swift */,
-				4D6D19762C271DB70038300F /* LockScreenMenuLiveActivity.swift */,
-				4D6D19782C271DB70038300F /* LockScreenMenu.swift */,
-				4D6D197A2C271DB70038300F /* AppIntent.swift */,
-				4D6D197C2C271DB90038300F /* Assets.xcassets */,
-				4D6D197E2C271DB90038300F /* Info.plist */,
-				4D6D198D2C27235E0038300F /* LockScreenMenuModule.swift */,
-				4D6D198F2C2724220038300F /* LockScreenMenuModule.m */,
-			);
-			path = LockScreenMenu;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -158,7 +87,6 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* xplaneapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				4D6D19732C271DB70038300F /* LockScreenMenu */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
@@ -173,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* xplaneapp.app */,
-				4D6D196E2C271DB70038300F /* LockScreenMenuExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,41 +147,22 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "xplaneapp" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				B975FD0E2E96E9AC2F734358 /* [Expo] Configure project */,
+				756D959D400F97C4238699D2 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				0C082CE45641D348397FB501 /* [CP] Embed Pods Frameworks */,
-				4D6D19822C271DB90038300F /* Embed Foundation Extensions */,
+				6F82C2A769A998572914960B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4D6D19802C271DB90038300F /* PBXTargetDependency */,
 			);
 			name = xplaneapp;
 			productName = xplaneapp;
 			productReference = 13B07F961A680F5B00A75B9A /* xplaneapp.app */;
 			productType = "com.apple.product-type.application";
-		};
-		4D6D196D2C271DB70038300F /* LockScreenMenuExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4D6D19852C271DB90038300F /* Build configuration list for PBXNativeTarget "LockScreenMenuExtension" */;
-			buildPhases = (
-				4D6D196A2C271DB70038300F /* Sources */,
-				4D6D196B2C271DB70038300F /* Frameworks */,
-				4D6D196C2C271DB70038300F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = LockScreenMenuExtension;
-			productName = LockScreenMenuExtension;
-			productReference = 4D6D196E2C271DB70038300F /* LockScreenMenuExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -262,14 +170,10 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1250;
-					};
-					4D6D196D2C271DB70038300F = {
-						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -287,7 +191,6 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* xplaneapp */,
-				4D6D196D2C271DB70038300F /* LockScreenMenuExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -300,15 +203,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				5A4F0E584956112EFC6B9DF9 /* PrivacyInfo.xcprivacy in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D6D196C2C271DB70038300F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D6D197D2C271DB90038300F /* Assets.xcassets in Resources */,
+				4EE39B1A45A1C97EAB11134B /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +247,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0C082CE45641D348397FB501 /* [CP] Embed Pods Frameworks */ = {
+		6F82C2A769A998572914960B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -369,6 +264,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xplaneapp/Pods-xplaneapp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		756D959D400F97C4238699D2 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-xplaneapp/expo-configure-project.sh\"\n";
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -396,25 +310,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-xplaneapp/Pods-xplaneapp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B975FD0E2E96E9AC2F734358 /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-xplaneapp/expo-configure-project.sh\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -425,44 +320,21 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				D30F910DB1A242B4B8BE56B7 /* noop-file.swift in Sources */,
-				4D6D198E2C27235E0038300F /* LockScreenMenuModule.swift in Sources */,
-				4D6D19902C2724220038300F /* LockScreenMenuModule.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4D6D196A2C271DB70038300F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4D6D19772C271DB70038300F /* LockScreenMenuLiveActivity.swift in Sources */,
-				4D6D197B2C271DB70038300F /* AppIntent.swift in Sources */,
-				4D6D19752C271DB70038300F /* LockScreenMenuBundle.swift in Sources */,
-				4D6D19792C271DB70038300F /* LockScreenMenu.swift in Sources */,
+				6E44A56C1C754BF0BFDEEEAB /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4D6D19802C271DB90038300F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4D6D196D2C271DB70038300F /* LockScreenMenuExtension */;
-			targetProxy = 4D6D197F2C271DB90038300F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-xplaneapp.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xplaneapp/xplaneapp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U45H3MG4PH;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -470,10 +342,7 @@
 				);
 				INFOPLIST_FILE = xplaneapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -483,7 +352,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = xplane.app;
 				PRODUCT_NAME = xplaneapp;
-				SWIFT_OBJC_BRIDGING_HEADER = "xplaneapp-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "xplaneapp/xplaneapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -495,18 +364,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-xplaneapp.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = xplaneapp/xplaneapp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = U45H3MG4PH;
 				INFOPLIST_FILE = xplaneapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -516,99 +380,10 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = xplane.app;
 				PRODUCT_NAME = xplaneapp;
-				SWIFT_OBJC_BRIDGING_HEADER = "xplaneapp-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "xplaneapp/xplaneapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
-		4D6D19832C271DB90038300F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = LockScreenMenuExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = U45H3MG4PH;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LockScreenMenu/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LockScreenMenu;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = xplane.app.LockScreenMenu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4D6D19842C271DB90038300F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = LockScreenMenuExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = U45H3MG4PH;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LockScreenMenu/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LockScreenMenu;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = xplane.app.LockScreenMenu;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -664,14 +439,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD = "";
 				LDPLUSPLUS = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"$(inherited)",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -723,13 +498,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD = "";
 				LDPLUSPLUS = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					/usr/lib/swift,
-					"$(inherited)",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = "$(SDKROOT)/usr/lib/swift\"$(inherited)\"";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -745,15 +520,6 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4D6D19852C271DB90038300F /* Build configuration list for PBXNativeTarget "LockScreenMenuExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4D6D19832C271DB90038300F /* Debug */,
-				4D6D19842C271DB90038300F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
