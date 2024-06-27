@@ -9,29 +9,18 @@
 import Foundation
 import AppIntents
 
-public struct PauseIntent: LiveActivityIntent {
-  public init() {}
-  public static var title: LocalizedStringResource = "Pause timer"
-  public func perform() async throws -> some IntentResult {
-    XplaneEventEmitter.emitter?.sendEvent(withName: "onPause", body: nil)
-    return .result()
+public struct ScoreIntent: LiveActivityIntent {
+  @Parameter(title: "field") var field: String?
+      
+  public init(field: String?) {
+      self.field = field
   }
-}
-
-public struct ResumeIntent: LiveActivityIntent {
+      
   public init() {}
-  public static var title: LocalizedStringResource = "Resume timer"
+  
+  public static var title: LocalizedStringResource = "Score"
   public func perform() async throws -> some IntentResult {
-    XplaneEventEmitter.emitter?.sendEvent(withName: "onResume", body: nil)
-    return .result()
-  }
-}
-
-public struct ResetIntent: LiveActivityIntent {
-  public init() {}
-  public static var title: LocalizedStringResource = "Reset timer"
-  public func perform() async throws -> some IntentResult {
-    XplaneEventEmitter.emitter?.sendEvent(withName: "onReset", body: nil)
+    XplaneEventEmitter.emitter?.sendEvent(withName: "onScore", body: [ "field": self.field ])
     return .result()
   }
 }

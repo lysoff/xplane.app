@@ -11,6 +11,8 @@ import SwiftUI
 
 struct XplaneWidgetAttributes: ActivityAttributes {
   public struct ContentState: Codable, Hashable {
+    var fields: [String] = []
+    
     // Dynamic stateful properties about your activity go here!
     // Unix timestamp in seconds
     var startedAt: Date?
@@ -58,64 +60,21 @@ struct XplaneWidgetLiveActivity: Widget {
           RoundedRectangle(cornerRadius: 24).strokeBorder(Color(red: 148/255.0, green: 163/255.0, blue: 184/255.0), lineWidth: 2)
           HStack {
             HStack(spacing: 8.0, content: {
-              if (context.state.isRunning()) {
-                Button(intent: PauseIntent()) {
+              ForEach(context.state.fields, id: \.self) { field in
+                Button(intent: ScoreIntent(field: field)) {
                   ZStack {
-                    Circle().fill(Color.cyan.opacity(0.5))
-                    Image(systemName: "pause.fill")
-                      .imageScale(.large)
-                      .foregroundColor(.cyan)
-                  }
-                }
-                .buttonStyle(PlainButtonStyle()) // Removes default button styling
-                .contentShape(Rectangle()) // Ensures the tap area includes the entire custom content
-              } else {
-                Button(intent: ResumeIntent()) {
-                  ZStack {
-                    Circle().fill(Color.cyan.opacity(0.5))
-                    Image(systemName: "play.fill")
-                      .imageScale(.large)
-                      .foregroundColor(.cyan)
+                    Text(field)
+                    Circle().fill(.gray.opacity(0.5))
+                    Image(systemName: "xmark")
+                      .imageScale(.medium)
+                      .foregroundColor(.white)
                   }
                 }
                 .buttonStyle(PlainButtonStyle()) // Removes default button styling
                 .contentShape(Rectangle()) // Ensures the tap area includes the entire custom content
               }
-              Button(intent: ResetIntent()) {
-                ZStack {
-                  Circle().fill(.gray.opacity(0.5))
-                  Image(systemName: "xmark")
-                    .imageScale(.medium)
-                    .foregroundColor(.white)
-                }
-              }
-              .buttonStyle(PlainButtonStyle()) // Removes default button styling
-              .contentShape(Rectangle()) // Ensures the tap area includes the entire custom content
-              Spacer()
+
             })
-            if (!context.state.isRunning()) {
-              Text(
-                context.state.getPausedTime()
-              )
-              .font(.title)
-              .foregroundColor(.cyan)
-              .fontWeight(.medium)
-              .monospacedDigit()
-              .transition(.identity)
-            } else {
-              Text(
-                Date(
-                  timeIntervalSinceNow: context.state.getTimeIntervalSinceNow()
-                ),
-                style: .timer
-              )
-              .font(.title)
-              .foregroundColor(.cyan)
-              .fontWeight(.medium)
-              .monospacedDigit()
-              .frame(width: 60)
-              .transition(.identity)
-            }
           }
           .padding()
         }
@@ -133,64 +92,20 @@ struct XplaneWidgetLiveActivity: Widget {
             RoundedRectangle(cornerRadius: 24).strokeBorder(Color(red: 148/255.0, green: 163/255.0, blue: 184/255.0), lineWidth: 2)
             HStack {
               HStack(spacing: 8.0, content: {
-                if (context.state.isRunning()) {
-                  Button(intent: PauseIntent()) {
+                ForEach(context.state.fields, id: \.self) { field in
+                  Button(intent: ScoreIntent(field: field)) {
                     ZStack {
-                      Circle().fill(Color.cyan.opacity(0.5))
-                      Image(systemName: "pause.fill")
-                        .imageScale(.large)
-                        .foregroundColor(.cyan)
-                    }
-                  }
-                  .buttonStyle(PlainButtonStyle()) // Removes default button styling
-                  .contentShape(Rectangle()) // Ensures the tap area includes the entire custom content
-                } else {
-                  Button(intent: ResumeIntent()) {
-                    ZStack {
-                      Circle().fill(Color.cyan.opacity(0.5))
-                      Image(systemName: "play.fill")
-                        .imageScale(.large)
-                        .foregroundColor(.cyan)
+                      Text(field)
+                      Circle().fill(.gray.opacity(0.5))
+                      Image(systemName: "xmark")
+                        .imageScale(.medium)
+                        .foregroundColor(.white)
                     }
                   }
                   .buttonStyle(PlainButtonStyle()) // Removes default button styling
                   .contentShape(Rectangle()) // Ensures the tap area includes the entire custom content
                 }
-                Button(intent: ResetIntent()) {
-                  ZStack {
-                    Circle().fill(.gray.opacity(0.5))
-                    Image(systemName: "xmark")
-                      .imageScale(.medium)
-                      .foregroundColor(.white)
-                  }
-                }
-                .buttonStyle(PlainButtonStyle()) // Removes default button styling
-                .contentShape(Rectangle()) // Ensures the tap area includes the entire custom content
-                Spacer()
               })
-              if (!context.state.isRunning()) {
-                Text(
-                  context.state.getPausedTime()
-                )
-                .font(.title)
-                .foregroundColor(.cyan)
-                .fontWeight(.medium)
-                .monospacedDigit()
-                .transition(.identity)
-              } else {
-                Text(
-                  Date(
-                    timeIntervalSinceNow: context.state.getTimeIntervalSinceNow()
-                  ),
-                  style: .timer
-                )
-                .font(.title)
-                .foregroundColor(.cyan)
-                .fontWeight(.medium)
-                .monospacedDigit()
-                .frame(width: 60)
-                .transition(.identity)
-              }
             }
             .padding()
           }
@@ -201,25 +116,7 @@ struct XplaneWidgetLiveActivity: Widget {
           .imageScale(.medium)
           .foregroundColor(.cyan)
       } compactTrailing: {
-        if (context.state.isRunning()) {
-          Text(
-            Date(timeIntervalSinceNow: context.state.getTimeIntervalSinceNow()),
-            style: .timer
-          )
-          .font(.title)
-          .foregroundColor(.cyan)
-          .fontWeight(.medium)
-          .monospacedDigit()
-        } else {
-          Text(
-            context.state.getPausedTime()
-          )
-          .font(.title)
-          .foregroundColor(.cyan)
-          .fontWeight(.medium)
-          .monospacedDigit()
-          .transition(.identity)
-        }
+        
       } minimal: {
         Image(systemName: "timer")
           .imageScale(.medium)

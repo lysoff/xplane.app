@@ -8,25 +8,16 @@
 import Foundation
 import AppIntents
 
-public struct PauseIntent: LiveActivityIntent {
-  public init() {}
-  public static var title: LocalizedStringResource = "Pause timer"
-  public func perform() async throws -> some IntentResult {
-    return .result()
+public struct ScoreIntent: LiveActivityIntent {
+  @Parameter(title: "field") var field: String?
+      
+  public init(field: String?) {
+      self.field = field
   }
-}
-
-public struct ResumeIntent: LiveActivityIntent {
+      
   public init() {}
-  public static var title: LocalizedStringResource = "Resume timer"
-  public func perform() async throws -> some IntentResult {
-    return .result()
-  }
-}
-
-public struct ResetIntent: LiveActivityIntent {
-  public init() {}
-  public static var title: LocalizedStringResource = "Reset timer"
+  
+  public static var title: LocalizedStringResource = "Score"
   public func perform() async throws -> some IntentResult {
     return .result()
   }

@@ -18,6 +18,6 @@ class XplaneEventEmitter: RCTEventEmitter {
   }
 
   override func supportedEvents() -> [String]! {
-    return ["onPause", "onResume", "onReset"]
+    return ["onScore"]
   }
 }

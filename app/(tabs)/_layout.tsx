@@ -6,8 +6,9 @@ import {
   MaterialCommunityIcons,
   SimpleLineIcons,
 } from "@/constants/icons";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Icon } from "@expo/vector-icons/build/createIconSet";
+import LiveActivity from "@/components/LiveActivity";
 
 interface TabIconProps {
   IconComponent: Icon<any, any>;
@@ -43,65 +44,68 @@ const _layout = () => {
   if (!isLogged) return <Redirect href="/signin" />;
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: "#FFA001",
-        tabBarInactiveTintColor: "#CDCDE0",
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: "#161622",
-          borderTopWidth: 1,
-          borderTopColor: "#232533",
-          height: 84,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              IconComponent={Feather}
-              focused={focused}
-              color={color}
-              name="user"
-              title="Home"
-            />
-          ),
+    <>
+      <LiveActivity />
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "#FFA001",
+          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            backgroundColor: "#161622",
+            borderTopWidth: 1,
+            borderTopColor: "#232533",
+            height: 84,
+          },
         }}
-      />
-      <Tabs.Screen
-        name="(fields)"
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              IconComponent={MaterialCommunityIcons}
-              focused={focused}
-              color={color}
-              name="view-list"
-              title="Fields"
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="score"
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon
-              IconComponent={SimpleLineIcons}
-              focused={focused}
-              color={color}
-              name="graph"
-              title="Score"
-            />
-          ),
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="home"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                IconComponent={Feather}
+                focused={focused}
+                color={color}
+                name="user"
+                title="Home"
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="(fields)"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                IconComponent={MaterialCommunityIcons}
+                focused={focused}
+                color={color}
+                name="view-list"
+                title="Fields"
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="score"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                IconComponent={SimpleLineIcons}
+                focused={focused}
+                color={color}
+                name="graph"
+                title="Score"
+              />
+            ),
+          }}
+        />
+      </Tabs>
+    </>
   );
 };
 
