@@ -1,6 +1,6 @@
 import { useFields } from "@/services/fieldService";
 import { useCreateScore } from "@/services/scoreService";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { NativeModules, NativeEventEmitter, NativeModule } from "react-native";
 
 const { XplaneWidgetModule } = NativeModules;
@@ -12,17 +12,23 @@ const LiveActivity = () => {
   const { data: fields } = useFields(true);
   const { mutateAsync: createScore } = useCreateScore();
 
-  const handleScore = async ({ field }: any) => {
-    if (!fields) return;
+  const handleScore = useCallback(
+    async ({ field }: any) => {
+      if (!fields) return;
+      const id = fields.find(({ icon }) => icon === field)?.$id || "";
 
-    const id = fields.find(({ icon }) => icon === field)?.$id || "";
-
-    await createScore({ success: true, fields: id, comment: "" });
-  };
+      await createScore({
+        success: true,
+        fields: id,
+        comment: "",
+      });
+    },
+    [fields]
+  );
 
   useEffect(() => {
     if (fields) {
-      XplaneWidgetModule.updateLiveActivity(fields.map(({ icon }) => icon));
+      XplaneWidgetModule.setLiveActivity(fields.map(({ icon }) => icon));
     }
   }, [fields]);
 
@@ -34,7 +40,7 @@ const LiveActivity = () => {
     return () => {
       scoreSubscription.remove();
     };
-  }, []);
+  }, [fields]);
 
   return null;
 };

@@ -14,7 +14,7 @@
   return NO;
 }
 
-RCT_EXTERN_METHOD(updateLiveActivity:(NSArray *)array)
+RCT_EXTERN_METHOD(setLiveActivity:(NSArray *)array)
 RCT_EXTERN_METHOD(stopLiveActivity)
 
 @end

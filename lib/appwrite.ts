@@ -171,7 +171,7 @@ export const listScores = async () => {
   const res = await databases.listDocuments<Score>(
     config.databaseId,
     config.scoreCollectionId,
-    [Query.equal("users", user.$id)]
+    [Query.limit(1000), Query.equal("users", user.$id)]
   );
 
   return res.documents;

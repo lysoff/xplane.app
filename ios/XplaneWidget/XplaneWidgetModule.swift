@@ -18,22 +18,33 @@ class XplaneWidgetModule: NSObject {
   }
 
   @objc
-  func updateLiveActivity(_ array: [String]) -> Void {
+  func setLiveActivity(_ array: [String]) -> Void {
     if (!areActivitiesEnabled()) {
       // User disabled Live Activities for the app, nothing to do
       return
     }
-
+    
     // Preparing data for the Live Activity
     let activityAttributes = XplaneWidgetAttributes()
     let contentState = XplaneWidgetAttributes.ContentState(fields: array)
     let activityContent = ActivityContent(state: contentState,  staleDate: nil)
-
-    do {
-      // Request to start a new Live Activity with the content defined above
-      currentActivity = try Activity.request(attributes: activityAttributes, content: activityContent)
-    } catch {
-      // Handle errors, skipped for simplicity
+    
+    if (currentActivity == nil) {
+      do {
+        // Request to start a new Live Activity with the content defined above
+        currentActivity = try Activity.request(attributes: activityAttributes, content: activityContent)
+      } catch {
+        // Handle errors, skipped for simplicity
+      }
+    } else {
+      Task {
+        await currentActivity?.update(
+          ActivityContent<XplaneWidgetAttributes.ContentState>(
+            state: contentState,
+            staleDate: nil
+          )
+        )
+      }
     }
   }
 
