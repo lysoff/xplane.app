@@ -4,7 +4,6 @@
 //
 //  Created by Ivan Lysov on 24/06/24.
 //
-// TimerWidgetModule.swift
 
 import Foundation
 import ActivityKit
@@ -56,22 +55,4 @@ class XplaneWidgetModule: NSObject {
       }
     }
   }
-
-
-//  @objc
-//  func pause(_ timestamp: Double) -> Void {
-//    pausedAt = Date(timeIntervalSince1970: timestamp)
-//    let contentState = XplaneWidgetAttributes.ContentState(startedAt: startedAt, pausedAt: pausedAt)
-//    
-//    print(pausedAt)
-//    print("Pausing")
-//    Task {
-//      await currentActivity?.update(
-//        ActivityContent<XplaneWidgetAttributes.ContentState>(
-//          state: contentState,
-//          staleDate: nil
-//        )
-//      )
-//    }
-//  }
 }
