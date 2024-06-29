@@ -26,7 +26,9 @@ export const getCurrentUser = async () => {
           avatar: getAvatar(account.name),
         });
       } else if (session.provider === "google") {
-        const userData = await googleService.getGoogleUser(account.email);
+        const userData = await googleService.getGoogleUser(
+          session.providerAccessToken
+        );
         user = await appwriteClient.createUser(userData);
       } else {
         throw new Error("Unknown provider");
