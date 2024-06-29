@@ -40,6 +40,8 @@ export const getCurrentUser = async () => {
       JSON.stringify({ id, name, email, avatar })
     );
 
+    appwriteClient.setUser(user);
+
     return user;
   } catch (e) {
     throw e;

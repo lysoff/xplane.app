@@ -15,7 +15,7 @@ export const useCreateScore = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: appwriteClient.createScore,
+    mutationFn: appwriteClient.createScore.bind(appwriteClient),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scores"] });
     },
@@ -25,6 +25,6 @@ export const useCreateScore = () => {
 export const useListScore = () => {
   return useQuery({
     queryKey: ["scores"],
-    queryFn: appwriteClient.listScores,
+    queryFn: appwriteClient.listScores.bind(appwriteClient),
   });
 };

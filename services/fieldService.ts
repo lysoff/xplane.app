@@ -25,7 +25,7 @@ export const useCreateField = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: appwriteClient.createField,
+    mutationFn: appwriteClient.createField.bind(appwriteClient),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fields"] });
     },
@@ -36,7 +36,7 @@ export const useDeleteField = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: appwriteClient.deleteField,
+    mutationFn: appwriteClient.deleteField.bind(appwriteClient),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fields"] });
     },
@@ -47,7 +47,7 @@ export const useUpdateField = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: appwriteClient.updateField,
+    mutationFn: appwriteClient.updateField.bind(appwriteClient),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fields"] });
     },

@@ -80,7 +80,7 @@ class AppwriteClient {
     this.databases = new Databases(this.client);
   }
 
-  setUser(user: User) {
+  setUser(user: User | null) {
     this.user = user;
   }
 
@@ -107,7 +107,7 @@ class AppwriteClient {
   }
 
   async logout() {
-    this.user = null;
+    this.setUser(null);
     return this.account.deleteSession("current");
   }
 
