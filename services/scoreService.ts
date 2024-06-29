@@ -1,4 +1,4 @@
-import * as api from "@/lib/appwrite";
+import appwriteClient from "@/lib/appwrite";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Models } from "react-native-appwrite";
 import { Field } from "./fieldService";
@@ -15,7 +15,7 @@ export const useCreateScore = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: api.createScore,
+    mutationFn: appwriteClient.createScore,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scores"] });
     },
@@ -25,6 +25,6 @@ export const useCreateScore = () => {
 export const useListScore = () => {
   return useQuery({
     queryKey: ["scores"],
-    queryFn: api.listScores,
+    queryFn: appwriteClient.listScores,
   });
 };

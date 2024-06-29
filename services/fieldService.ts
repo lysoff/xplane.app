@@ -1,5 +1,5 @@
 import { FieldType } from "@/components/charts/ScorePoint";
-import * as api from "@/lib/appwrite";
+import appwriteClient from "@/lib/appwrite";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Models } from "react-native-appwrite";
 
@@ -12,20 +12,20 @@ export type Field = Models.Document & {
 export const useField = (id: string) =>
   useQuery({
     queryKey: ["fields", id],
-    queryFn: () => api.getField(id),
+    queryFn: () => appwriteClient.getField(id),
   });
 
 export const useFields = (activeOnly = false) =>
   useQuery({
     queryKey: ["fields", { activeOnly }],
-    queryFn: () => api.listFields(activeOnly),
+    queryFn: () => appwriteClient.listFields(activeOnly),
   });
 
 export const useCreateField = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: api.createField,
+    mutationFn: appwriteClient.createField,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fields"] });
     },
@@ -36,7 +36,7 @@ export const useDeleteField = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: api.deleteField,
+    mutationFn: appwriteClient.deleteField,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fields"] });
     },
@@ -47,7 +47,7 @@ export const useUpdateField = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: api.updateField,
+    mutationFn: appwriteClient.updateField,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fields"] });
     },
