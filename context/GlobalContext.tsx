@@ -31,22 +31,20 @@ export const GlobalProvider = ({ children }: GlobalProviderProps) => {
   const [userInfo, setUserInfo] = useState<any>(null);
 
   useEffect(() => {
-    getCurrentUser()
-      .then((res) => {
-        if (res) {
-          setIsLogged(true);
-          setUserInfo(res);
-        } else {
-          setIsLogged(false);
-          setUserInfo(null);
-        }
-      })
-      .catch((e) => {
+    const fetchUser = async () => {
+      try {
+        const user = await getCurrentUser();
+
+        setIsLogged(true);
+        setUserInfo(user);
+      } catch (e) {
         console.log(e);
-      })
-      .finally(() => {
+      } finally {
         setIsLoading(false);
-      });
+      }
+    };
+
+    fetchUser();
   }, []);
 
   return (

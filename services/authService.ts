@@ -1,4 +1,6 @@
-import * as appwrite from "@/lib/appwrite";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import appwriteClient, { callbackUrl, getAvatar } from "@/lib/appwrite";
 import * as WebBrowser from "expo-web-browser";
 import * as cookieService from "./cookieService";
 import * as googleService from "./googleService";
@@ -10,19 +12,60 @@ interface SignUpParams {
   password: string;
 }
 
+export const getCurrentUser = async () => {
+  try {
+    const account = await appwriteClient.getCurrentAccount();
+    let user = await appwriteClient.getUser(account.email);
+
+    if (!user) {
+      const session = await appwriteClient.getCurrentSession();
+      if (session.provider === "email") {
+        user = await appwriteClient.createUser({
+          name: account.name,
+          email: account.email,
+          avatar: getAvatar(account.name),
+        });
+      } else if (session.provider === "google") {
+        const userData = await googleService.getGoogleUser(account.email);
+        user = await appwriteClient.createUser(userData);
+      } else {
+        throw new Error("Unknown provider");
+      }
+    }
+
+    const { $id: id, name, email, avatar } = user;
+
+    await AsyncStorage.setItem(
+      "user",
+      JSON.stringify({ id, name, email, avatar })
+    );
+
+    return user;
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const googleSignIn = async () => {
+  const browserResult = (await WebBrowser.openAuthSessionAsync(
+    appwriteClient.getGoogleAuthUrl(),
+    callbackUrl
+  )) as { url: string };
+
+  await cookieService.handleIncomingCookie(browserResult.url);
+
+  return getCurrentUser();
+};
+
+export const signIn = async (email: string, password: string) => {
+  await appwriteClient.signIn(email, password);
+
+  return getCurrentUser();
+};
+
 export const signUp = async ({ username, email, password }: SignUpParams) => {
-  await appwrite.createAccount({ username, email, password });
-  await appwrite.signIn(email, password);
-
-  const user = {
-    email,
-    name: username,
-    avatar: appwrite.getAvatar(username),
-  };
-
-  await appwrite.createUser(user);
-
-  return user;
+  await appwriteClient.createAccount({ username, email, password });
+  return signIn(email, password);
 };
 
 export const useSignUp = () =>
@@ -30,48 +73,11 @@ export const useSignUp = () =>
     mutationFn: signUp,
   });
 
-export const signIn = async (email: string, password: string) => {
-  await appwrite.signIn(email, password);
-
-  return appwrite.getUser(email);
-};
-
-export const googleSignIn = async () => {
-  const browserResult = (await WebBrowser.openAuthSessionAsync(
-    appwrite.googleAuthUrl,
-    appwrite.callbackUrl
-  )) as { url: string };
-
-  await cookieService.handleIncomingCookie(
-    browserResult.url,
-    appwrite.config.endpoint
-  );
-
-  let user = await getCurrentUser();
-
-  if (!user) {
-    const session = await appwrite.getSession();
-    const googleUser = await googleService.getGoogleUser(
-      session.providerAccessToken
-    );
-
-    user = await appwrite.createUser({
-      email: googleUser.email,
-      name: googleUser.name,
-      avatar: googleUser.picture,
-    });
-  }
-
-  return user;
-};
-
 export const logout = async () => {
-  await appwrite.logout();
-  await cookieService.deleteCookies();
-};
-
-export const getCurrentUser = async () => {
-  const account = await appwrite.getCurrentAccount();
-
-  return appwrite.getUser(account.email);
+  try {
+    await appwriteClient.logout();
+  } finally {
+    await cookieService.deleteCookies();
+    await AsyncStorage.removeItem("user");
+  }
 };

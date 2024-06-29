@@ -6,5 +6,13 @@ export const getGoogleUser = async (token: string) => {
     },
   });
 
-  return res.json();
+  const googleUser = await res.json();
+
+  const userData = {
+    email: googleUser.email,
+    name: googleUser.name,
+    avatar: googleUser.picture,
+  };
+
+  return userData;
 };

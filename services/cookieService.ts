@@ -1,6 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import CookieManager, { Cookie } from "@react-native-cookies/cookies";
 
-export const handleIncomingCookie = async (url: string, endpoint: string) => {
+import { config } from "@/lib/appwrite";
+
+export const handleIncomingCookie = async (url: string) => {
   if (!url.includes("appwrite-callback")) {
     return false;
   }
@@ -13,7 +16,7 @@ export const handleIncomingCookie = async (url: string, endpoint: string) => {
     );
   }
 
-  const domainUrl = new URL(endpoint);
+  const domainUrl = new URL(config.endpoint);
 
   const cookie: Cookie = {
     name: queryParams.key,
@@ -25,7 +28,16 @@ export const handleIncomingCookie = async (url: string, endpoint: string) => {
     domain: domainUrl.hostname,
   };
 
-  return CookieManager.set(domainUrl.toString(), cookie);
+  await AsyncStorage.setItem("cookie", JSON.stringify(cookie));
+  return setCookie(cookie);
+};
+
+export const setCookie = async (cookie: Cookie) => {
+  return CookieManager.set(config.endpoint, cookie);
+};
+
+export const getCookie = async () => {
+  return CookieManager.get(config.endpoint);
 };
 
 export const deleteCookies = async () => {

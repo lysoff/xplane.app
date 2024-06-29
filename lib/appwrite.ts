@@ -5,6 +5,7 @@ import {
   Client,
   Databases,
   ID,
+  Models,
   OAuthProvider,
   Query,
 } from "react-native-appwrite";
@@ -19,224 +20,235 @@ export const config = {
   scoreCollectionId: "665d93e200152243b51e",
 };
 
-export const client = new Client();
+export type User = Models.Document & {
+  name: string;
+  email: string;
+  avatar: string;
+};
 
-client
-  .setEndpoint(config.endpoint)
-  .setProject(config.projectId)
-  .setPlatform(config.platform);
-
-const account = new Account(client);
-const databases = new Databases(client);
-
-export const googleAuthUrl = String(
-  account.createOAuth2Session(OAuthProvider.Google)
-);
-export const callbackUrl = `appwrite-callback-${config.projectId}://`;
 interface CreateAccountParams {
   email: string;
   password: string;
   username: string;
 }
 
-export const getUser = async (email: string) => {
-  const users = await databases.listDocuments<any>(
-    config.databaseId,
-    config.usersCollectionId,
-    [Query.equal("email", email)]
-  );
-
-  return users.total ? users.documents[0] : null;
-};
-
-export const logout = async () => {
-  return account.deleteSession("current");
-};
-
-export const getAvatar = (username = "") => {
-  return `${config.endpoint}/avatars/initials?name=${username}&width=96&height=96&project=console`;
-};
-
-export const createAccount = async ({
-  email,
-  password,
-  username,
-}: CreateAccountParams) => {
-  try {
-    await account.create(ID.unique(), email, password, username);
-  } catch (e) {
-    console.log(e);
-    throw e;
-  }
-};
-
 interface CreateUserParams {
   email: string;
   avatar: string;
   name: string;
 }
-
-export const createUser = async ({ name, email, avatar }: CreateUserParams) => {
-  return databases.createDocument(
-    config.databaseId,
-    config.usersCollectionId,
-    ID.unique(),
-    {
-      name,
-      email,
-      avatar,
-    }
-  );
-};
-
-export const getCurrentAccount = async () => {
-  return account.get();
-};
-
-export const getSession = async () => {
-  return account.getSession("current");
-};
-
-export const signIn = async (email: string, password: string) => {
-  return account.createEmailPasswordSession(email, password);
-};
-
 interface CreateFieldParams {
   name: string;
   icon: string;
   active: boolean;
 }
 
-export const createField = async ({
-  name,
-  icon,
-  active = true,
-}: CreateFieldParams) => {
-  try {
-    const account = await getCurrentAccount();
-    const user = await getUser(account.email);
-
-    return await databases.createDocument(
-      config.databaseId,
-      config.fieldsCollectionId,
-      ID.unique(),
-      {
-        name,
-        active,
-        icon,
-        users: user.$id,
-      }
-    );
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 interface CreateScoreParams {
   success: boolean;
   comment: string;
   fields: string; //$id
 }
-
-export const createScore = async ({
-  success,
-  comment,
-  fields,
-}: CreateScoreParams) => {
-  try {
-    const account = await getCurrentAccount();
-    const user = await getUser(account.email);
-
-    return await databases.createDocument(
-      config.databaseId,
-      config.scoreCollectionId,
-      ID.unique(),
-      {
-        date: new Date().toISOString(),
-        success,
-        comment,
-        fields,
-        users: user.$id,
-      }
-    );
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const listScores = async () => {
-  const account = await getCurrentAccount();
-  const user = await getUser(account.email);
-
-  const res = await databases.listDocuments<Score>(
-    config.databaseId,
-    config.scoreCollectionId,
-    [Query.limit(1000), Query.equal("users", user.$id)]
-  );
-
-  return res.documents;
-};
-
 interface DeleteFieldParams {
   id: string;
 }
-
-export const deleteField = async ({ id }: DeleteFieldParams) => {
-  try {
-    return await databases.deleteDocument(
-      config.databaseId,
-      config.fieldsCollectionId,
-      id
-    );
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const listFields = async (activeOnly: boolean) => {
-  const account = await getCurrentAccount();
-  const user = await getUser(account.email);
-
-  const userQuery = Query.equal("users", user.$id);
-  const query = activeOnly
-    ? [Query.and([userQuery, Query.equal("active", true)])]
-    : [userQuery];
-
-  const res = await databases.listDocuments<Field>(
-    config.databaseId,
-    config.fieldsCollectionId,
-    query
-  );
-
-  return res.documents;
-};
-
 interface UpdateFieldParams {
   id: string;
   updatedPart: any;
 }
 
-export const updateField = async ({ id, updatedPart }: UpdateFieldParams) => {
-  try {
-    return databases.updateDocument(
-      config.databaseId,
-      config.fieldsCollectionId,
-      id,
-      updatedPart
-    );
-  } catch (e) {
-    console.log(e);
-  }
-};
+export const callbackUrl = `appwrite-callback-${config.projectId}://`;
 
-export const getField = async (id: string) => {
-  try {
-    return databases.getDocument<Field>(
+export const getAvatar = (username = "") => {
+  return `${config.endpoint}/avatars/initials?name=${username}&width=96&height=96&project=console`;
+};
+class AppwriteClient {
+  client: Client;
+  account: Account;
+  databases: Databases;
+
+  user: User | null = null;
+
+  constructor() {
+    this.client = new Client();
+
+    this.client
+      .setEndpoint(config.endpoint)
+      .setProject(config.projectId)
+      .setPlatform(config.platform);
+
+    this.account = new Account(this.client);
+    this.databases = new Databases(this.client);
+  }
+
+  setUser(user: User) {
+    this.user = user;
+  }
+
+  getGoogleAuthUrl() {
+    return String(this.account.createOAuth2Session(OAuthProvider.Google));
+  }
+
+  async getCurrentAccount() {
+    return this.account.get();
+  }
+
+  async getCurrentSession() {
+    return this.account.getSession("current");
+  }
+
+  async getUser(email: string) {
+    const users = await this.databases.listDocuments<User>(
+      config.databaseId,
+      config.usersCollectionId,
+      [Query.equal("email", email)]
+    );
+
+    return users.total ? users.documents[0] : null;
+  }
+
+  async logout() {
+    this.user = null;
+    return this.account.deleteSession("current");
+  }
+
+  async createAccount({ email, password, username }: CreateAccountParams) {
+    try {
+      await this.account.create(ID.unique(), email, password, username);
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
+  }
+
+  async createUser({ name, email, avatar }: CreateUserParams) {
+    return this.databases.createDocument<User>(
+      config.databaseId,
+      config.usersCollectionId,
+      ID.unique(),
+      {
+        name,
+        email,
+        avatar,
+      }
+    );
+  }
+
+  async signIn(email: string, password: string) {
+    // Adds cookie
+    return this.account.createEmailPasswordSession(email, password);
+  }
+
+  async createField({ name, icon, active = true }: CreateFieldParams) {
+    if (!this.user) {
+      throw new Error("createField: No user provided");
+    }
+
+    try {
+      return await this.databases.createDocument(
+        config.databaseId,
+        config.fieldsCollectionId,
+        ID.unique(),
+        {
+          name,
+          active,
+          icon,
+          users: this.user.$id,
+        }
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async createScore({ success, comment, fields }: CreateScoreParams) {
+    try {
+      if (!this.user) {
+        throw new Error("createScore: No user provided");
+      }
+
+      return await this.databases.createDocument(
+        config.databaseId,
+        config.scoreCollectionId,
+        ID.unique(),
+        {
+          date: new Date().toISOString(),
+          success,
+          comment,
+          fields,
+          users: this.user.$id,
+        }
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async listScores() {
+    if (!this.user) {
+      throw new Error("listScores: No user provided");
+    }
+
+    const res = await this.databases.listDocuments<Score>(
+      config.databaseId,
+      config.scoreCollectionId,
+      [Query.limit(1000), Query.equal("users", this.user.$id)]
+    );
+
+    return res.documents;
+  }
+
+  async deleteField({ id }: DeleteFieldParams) {
+    try {
+      return await this.databases.deleteDocument(
+        config.databaseId,
+        config.fieldsCollectionId,
+        id
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async listFields(activeOnly: boolean) {
+    if (!this.user) {
+      throw new Error("listFields: No user provided");
+    }
+    const query = [Query.equal("users", this.user.$id)];
+    if (activeOnly) query.push(Query.equal("active", true));
+
+    const res = await this.databases.listDocuments<Field>(
       config.databaseId,
       config.fieldsCollectionId,
-      id
+      query
     );
-  } catch (e) {
-    console.log(e);
+
+    return res.documents;
   }
-};
+
+  async updateField({ id, updatedPart }: UpdateFieldParams) {
+    try {
+      return this.databases.updateDocument(
+        config.databaseId,
+        config.fieldsCollectionId,
+        id,
+        updatedPart
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async getField(id: string) {
+    try {
+      return this.databases.getDocument<Field>(
+        config.databaseId,
+        config.fieldsCollectionId,
+        id
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+const client = new AppwriteClient();
+export default client;
