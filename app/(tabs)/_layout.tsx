@@ -60,6 +60,21 @@ const _layout = () => {
         }}
       >
         <Tabs.Screen
+          name="(main)"
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                IconComponent={MaterialCommunityIcons}
+                focused={focused}
+                color={color}
+                name="grid"
+                title="Fields"
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="home"
           options={{
             headerShown: false,
