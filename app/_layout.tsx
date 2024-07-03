@@ -8,6 +8,9 @@ import { useFonts } from "expo-font";
 import { GlobalProvider } from "@/context/GlobalContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Settings } from "luxon";
+
+Settings.defaultLocale = "en-us";
 
 SplashScreen.preventAutoHideAsync();
 
