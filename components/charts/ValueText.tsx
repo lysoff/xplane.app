@@ -6,14 +6,15 @@ import { SharedValue, useDerivedValue } from "react-native-reanimated";
 interface Props {
   x: number;
   y: number;
+  value: SharedValue<number>;
   progress: SharedValue<number>;
 }
 
-const ValueText = ({ x, y, progress }: Props) => {
+const ValueText = ({ x, y, progress, value }: Props) => {
   const font = useFont(require("@/assets/fonts/Poppins-SemiBold.ttf"));
 
   const text = useDerivedValue(() => {
-    return String(Math.trunc(y * progress.value));
+    return String(Math.trunc(value.value * progress.value));
   });
 
   const textY = useDerivedValue(() => 320 + y * progress.value * -1);
