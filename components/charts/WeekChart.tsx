@@ -63,7 +63,7 @@ const WeekChart = ({
 
     const y = canvasHeight;
     const width = BAR_WIDTH;
-    const height = yScale(dataPoint.value)! * -1;
+    const height = yScale(dataPoint.value)!;
 
     return {
       x,
@@ -135,7 +135,7 @@ const Bar = ({
         x: x.value,
         y: y - 20,
         width,
-        height: height.value,
+        height: height.value * -1,
       },
       rx: 8,
       ry: 8,
@@ -152,12 +152,33 @@ const Bar = ({
     return x.value - (textWidth - BAR_WIDTH) / 2;
   });
 
+  const valueText = useDerivedValue(() => {
+    return String(Math.round(value.value));
+  });
+
+  const valueY = useDerivedValue(() => {
+    return y - height.value - 28;
+  });
+
+  const valueX = useDerivedValue(() => {
+    const textWidth = font?.measureText(valueText.value).width || 0;
+
+    return x.value - (textWidth - BAR_WIDTH) / 2;
+  });
+
   if (!font) {
     return null;
   }
 
   return (
     <Group>
+      <Text
+        color={colors.gray[100]}
+        font={font}
+        x={valueX}
+        y={valueY}
+        text={valueText}
+      />
       <Path path={path} color={colors.secondary[200]} />
       <Text color={colors.gray[100]} font={font} x={textX} y={y} text={day} />
     </Group>
