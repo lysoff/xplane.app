@@ -122,7 +122,7 @@ const Day = ({
 
   const color = useDerivedValue(() => {
     return currentIndex.value === -Math.trunc(index / 7)
-      ? colors.secondary[200]
+      ? colors.gray[100]
       : colors.primary;
   });
 
@@ -140,7 +140,12 @@ const Day = ({
         width={DAY_SIZE}
         height={DAY_SIZE}
         r={8}
-        color="lightblue"
+        color={
+          currentIndex.value === -Math.trunc(index / 7)
+            ? colors.secondary[200]
+            : "lightblue"
+        }
+        opacity={value < 50 ? 0 : value < 80 ? 0.3 : value < 120 ? 0.7 : 1}
       />
       <Text
         color={color}

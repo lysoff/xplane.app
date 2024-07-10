@@ -1,18 +1,24 @@
 import React, { useEffect, useMemo } from "react";
-import { Canvas, Path, Skia } from "@shopify/react-native-skia";
+import {
+  Canvas,
+  Group,
+  Path,
+  Skia,
+  Text,
+  useFont,
+} from "@shopify/react-native-skia";
 import { colors } from "@/constants/colors";
 import {
   SharedValue,
   useDerivedValue,
   useSharedValue,
-  withDelay,
   withTiming,
 } from "react-native-reanimated";
 import * as d3 from "d3";
 import { useCurrentIndexContext } from "./useCurrentIndexContext";
-import { useDays } from "@/utils/useDays";
+import { labels, useDays } from "@/utils/useDays";
 
-const BAR_WIDTH = 40;
+const BAR_WIDTH = 30;
 
 export type DataPoint = {
   day: string;
@@ -27,8 +33,7 @@ const WeekChart = ({
   width: number;
   height: number;
 }) => {
-  const progress = useSharedValue(0);
-  const { currentIndex, currentIndexJS } = useCurrentIndexContext();
+  const { currentIndexJS } = useCurrentIndexContext();
 
   const days = useDays();
 
@@ -47,7 +52,7 @@ const WeekChart = ({
 
   const xScale = d3.scalePoint().range(xRange).domain(xDomain).padding(1);
 
-  const yRange = [0, canvasHeight - 30];
+  const yRange = [0, canvasHeight - 50];
   const yDomain = [0, d3.max(week, ({ value }) => value)!];
 
   const yScale = d3.scaleLinear().range(yRange).domain(yDomain);
@@ -65,13 +70,16 @@ const WeekChart = ({
       y,
       width,
       height,
+      value: dataPoint.value,
     };
   };
 
   const weekBars = Array.from({ length: 7 }).map((_, i) => {
-    const { x, y, width, height } = getBarData(i);
+    const { x, y, width, height, value } = getBarData(i);
 
     return {
+      day: labels[i],
+      value: useSharedValue(value),
       x: useSharedValue(x),
       y,
       width,
@@ -87,12 +95,9 @@ const WeekChart = ({
 
       day.x.value = withTiming(barData.x);
       day.height.value = withTiming(barData.height);
+      day.value.value = withTiming(barData.value);
     }
   }, [week]);
-
-  useEffect(() => {
-    progress.value = withDelay(300, withTiming(1, { duration: 500 }));
-  }, []);
 
   return (
     <Canvas
@@ -101,19 +106,23 @@ const WeekChart = ({
         height: canvasHeight,
       }}
     >
-      {weekBars.map(({ x, y, width, height }, index) => {
-        return <BarPath key={index} {...{ x, y, width, height }} />;
+      {weekBars.map(({ x, y, width, height, value, day }, index) => {
+        return <Bar key={index} {...{ x, y, width, height, value, day }} />;
       })}
     </Canvas>
   );
 };
 
-const BarPath = ({
+const Bar = ({
   x,
   y,
   width,
   height,
+  value,
+  day,
 }: {
+  day: string;
+  value: SharedValue<number>;
   x: SharedValue<number>;
   y: number;
   width: number;
@@ -124,7 +133,7 @@ const BarPath = ({
     barPath.addRRect({
       rect: {
         x: x.value,
-        y,
+        y: y - 20,
         width,
         height: height.value,
       },
@@ -135,7 +144,24 @@ const BarPath = ({
     return barPath;
   });
 
-  return <Path path={path} color={colors.secondary[200]} />;
+  const font = useFont(require("@/assets/fonts/Poppins-SemiBold.ttf"));
+
+  const textX = useDerivedValue(() => {
+    const textWidth = font?.measureText(day).width || 0;
+
+    return x.value - (textWidth - BAR_WIDTH) / 2;
+  });
+
+  if (!font) {
+    return null;
+  }
+
+  return (
+    <Group>
+      <Path path={path} color={colors.secondary[200]} />
+      <Text color={colors.gray[100]} font={font} x={textX} y={y} text={day} />
+    </Group>
+  );
 };
 
 export default WeekChart;

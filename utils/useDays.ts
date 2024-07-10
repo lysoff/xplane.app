@@ -1,7 +1,7 @@
 import { DataPoint } from "@/components/charts/WeekChart";
 
-const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const daysOfTheWeek = [
+export const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+export const daysOfTheWeek = [
   "Monday",
   "Tuesday",
   "Wednesday",
