@@ -1,4 +1,4 @@
-import { FieldType } from "@/components/charts/ScorePoint";
+import { FieldType } from "@/constants/icons";
 import appwriteClient from "@/lib/appwrite";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Models } from "react-native-appwrite";

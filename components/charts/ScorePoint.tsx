@@ -1,21 +1,9 @@
 import { colors } from "@/constants/colors";
 import React from "react";
-import { Circle, G, SvgProps } from "react-native-svg";
+import { Circle, G } from "react-native-svg";
 
-import ToiletSvg from "@/assets/icons/toilet.svg";
-import CandySvg from "@/assets/icons/candy.svg";
-import SmokingSvg from "@/assets/icons/smoking.svg";
-import PhoneSvg from "@/assets/icons/phone.svg";
 import { GestureResponderEvent } from "react-native";
-
-export type FieldType = "toilet phone" | "sugar" | "smoking" | "phone";
-
-export const Icons: Record<FieldType, React.FC<SvgProps>> = {
-  "toilet phone": ToiletSvg,
-  sugar: CandySvg,
-  smoking: SmokingSvg,
-  phone: PhoneSvg,
-};
+import { FieldType, Icons } from "@/constants/icons";
 
 interface ScorePointProps {
   field?: FieldType;

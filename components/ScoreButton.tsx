@@ -2,9 +2,8 @@ import { Text } from "react-native";
 import React, { useCallback, useState } from "react";
 import { Field } from "@/services/fieldService";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
-import { Icons } from "./charts/ScorePoint";
+import { Icons } from "@/constants/icons";
 
 interface ScoreButtonProps {
   field: Field;

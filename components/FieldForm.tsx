@@ -9,10 +9,8 @@ import {
 import React, { useState } from "react";
 import Button from "./Button";
 import { colors } from "@/constants/colors";
-import { FieldType, Icons } from "./charts/ScorePoint";
 import { Field } from "@/services/fieldService";
-
-const ICONS: FieldType[] = ["phone", "smoking", "sugar", "toilet phone"];
+import { IconNames, Icons } from "@/constants/icons";
 
 export interface FieldFormParams {
   $id?: string;
@@ -63,7 +61,7 @@ const FieldForm = ({ title, buttonText, onSave, field }: FieldFormProps) => {
       <View className="flex-col gap-y-2 my-2 w-full">
         <Text className="text-gray-500 text-xl">Choose icon</Text>
         <View className="flex-row flex-wrap gap-4">
-          {ICONS.map((icon) => {
+          {IconNames.map((icon) => {
             const IconComponent = Icons[icon];
             return (
               <TouchableOpacity

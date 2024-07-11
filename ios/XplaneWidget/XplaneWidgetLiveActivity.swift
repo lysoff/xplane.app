@@ -21,15 +21,13 @@ struct XplaneWidgetLiveActivity: Widget {
       // Lock screen/banner UI goes here
       VStack {
         ZStack {
-          RoundedRectangle(cornerRadius: 24).strokeBorder(Color(red: 148/255.0, green: 163/255.0, blue: 184/255.0), lineWidth: 2)
           HStack {
             HStack(spacing: 8.0, content: {
               ForEach(context.state.fields, id: \.self) { field in
                 Button(intent: ScoreIntent(field: field)) {
                   ZStack {
-                    Text(field)
-                    Circle().fill(.gray.opacity(0.5))
-                    Image(systemName: "xmark")
+                    Circle().strokeBorder(Color(red: 255/255.0, green: 142/255.0, blue: 1/255.0), lineWidth: 2)
+                    Image(field)
                       .imageScale(.medium)
                       .foregroundColor(.white)
                   }
@@ -48,20 +46,15 @@ struct XplaneWidgetLiveActivity: Widget {
       .activitySystemActionForegroundColor(Color.black)
     } dynamicIsland: { context in
       DynamicIsland {
-        // Expanded Region
-        // TimerWidgetLiveActivity.swift
-        
         DynamicIslandExpandedRegion(.center) {
           ZStack {
-            RoundedRectangle(cornerRadius: 24).strokeBorder(Color(red: 148/255.0, green: 163/255.0, blue: 184/255.0), lineWidth: 2)
             HStack {
               HStack(spacing: 8.0, content: {
                 ForEach(context.state.fields, id: \.self) { field in
                   Button(intent: ScoreIntent(field: field)) {
                     ZStack {
-                      Text(field)
-                      Circle().fill(.gray.opacity(0.5))
-                      Image(systemName: "xmark")
+                      Circle().strokeBorder(Color(red: 255/255.0, green: 142/255.0, blue: 1/255.0), lineWidth: 2)
+                      Image(field)
                         .imageScale(.medium)
                         .foregroundColor(.white)
                     }
@@ -100,7 +93,7 @@ extension XplaneWidgetAttributes {
 
 extension XplaneWidgetAttributes.ContentState {
   fileprivate static var initState: XplaneWidgetAttributes.ContentState {
-    XplaneWidgetAttributes.ContentState(fields: ["Hello", "Goodbye"])
+    XplaneWidgetAttributes.ContentState(fields: ["sugar", "phone"])
   }
 }
      
