@@ -16,6 +16,8 @@ struct XplaneWidgetAttributes: ActivityAttributes {
 }
 
 struct XplaneWidgetLiveActivity: Widget {
+  var secondaryColor: Color = Color(red: 255/255.0, green: 142/255.0, blue: 1/255.0);
+  
   var body: some WidgetConfiguration {
     ActivityConfiguration(for: XplaneWidgetAttributes.self) { context in
       // Lock screen/banner UI goes here
@@ -26,10 +28,10 @@ struct XplaneWidgetLiveActivity: Widget {
               ForEach(context.state.fields, id: \.self) { field in
                 Button(intent: ScoreIntent(field: field)) {
                   ZStack {
-                    Circle().strokeBorder(Color(red: 255/255.0, green: 142/255.0, blue: 1/255.0), lineWidth: 2)
+                    Circle().strokeBorder(secondaryColor, lineWidth: 2).frame(width: 60, height: 60)
                     Image(field)
                       .imageScale(.medium)
-                      .foregroundColor(.white)
+                      .foregroundColor(Color(secondaryColor))
                   }
                 }
                 .buttonStyle(PlainButtonStyle()) // Removes default button styling
@@ -42,8 +44,8 @@ struct XplaneWidgetLiveActivity: Widget {
         }
         .padding()
       }
-      .activityBackgroundTint(Color.cyan)
-      .activitySystemActionForegroundColor(Color.black)
+      .activityBackgroundTint(Color.black)
+      .activitySystemActionForegroundColor(Color.green)
     } dynamicIsland: { context in
       DynamicIsland {
         DynamicIslandExpandedRegion(.center) {
@@ -53,7 +55,7 @@ struct XplaneWidgetLiveActivity: Widget {
                 ForEach(context.state.fields, id: \.self) { field in
                   Button(intent: ScoreIntent(field: field)) {
                     ZStack {
-                      Circle().strokeBorder(Color(red: 255/255.0, green: 142/255.0, blue: 1/255.0), lineWidth: 2)
+                      Circle().strokeBorder(secondaryColor, lineWidth: 2)
                       Image(field)
                         .imageScale(.medium)
                         .foregroundColor(.white)
@@ -69,15 +71,15 @@ struct XplaneWidgetLiveActivity: Widget {
           .padding()
         }
       } compactLeading: {
-        Image(systemName: "timer")
+        Image(systemName: "xmark")
           .imageScale(.medium)
-          .foregroundColor(.cyan)
+          .foregroundColor(secondaryColor)
       } compactTrailing: {
         
       } minimal: {
-        Image(systemName: "timer")
+        Image(systemName: "xmark")
           .imageScale(.medium)
-          .foregroundColor(.cyan)
+          .foregroundColor(secondaryColor)
       }
       .widgetURL(URL(string: "http://www.apple.com"))
       .keylineTint(Color.red)
