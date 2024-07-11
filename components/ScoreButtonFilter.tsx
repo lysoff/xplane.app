@@ -2,7 +2,7 @@ import { Text } from "react-native";
 import React, { useCallback, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { colors } from "@/constants/colors";
-import { FieldType, Icons } from "./charts/ScorePoint";
+import { FieldType, Icons } from "@/constants/icons";
 
 interface ScoreButtonFilterProps {
   field: FieldType;

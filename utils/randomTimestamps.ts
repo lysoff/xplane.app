@@ -1,4 +1,4 @@
-import { FieldType, Icons } from "@/components/charts/ScorePoint";
+import { FieldType, Icons } from "@/constants/icons";
 import { DateTime } from "luxon";
 
 export const randomTimestamps = () => {
