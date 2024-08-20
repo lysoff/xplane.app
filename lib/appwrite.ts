@@ -10,6 +10,8 @@ import {
   Query,
 } from "react-native-appwrite";
 
+// For Exodus: surely this going to move to .env
+// Appwrite was picked to check the quick alternative to firebase
 export const config = {
   endpoint: "https://cloud.appwrite.io/v1",
   projectId: "665b17750024b892b938",
